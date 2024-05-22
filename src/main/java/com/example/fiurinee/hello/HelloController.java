@@ -7,6 +7,6 @@ public class HelloController {
     @GetMapping("/docker")
     @ResponseBody
     public String sayHello() {
-        return "ci/cd 테스트 아니 젭알";
+        return "ci/cd 테스트 다시 수정";
     }
 }
