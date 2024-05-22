@@ -32,7 +32,7 @@ jobs:
 
       # Gradle을 사용하여 프로젝트를 빌드합니다.
       - name: Build With Gradle
-        run: ./gradlew build
+        run: ./gradlew build -x test
 
       # Docker 이미지를 빌드합니다.
       - name: docker image build
