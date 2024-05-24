@@ -15,3 +15,15 @@ spring:
 logging.level:
   org.hibernate.SQL: debug
   org.hibernate.type: trace
+
+cloud:
+  aws:
+    credentials:
+      accessKey: ${cloud.aws.credentials.accessKey}
+      secretKey: ${cloud.aws.credentials.secretKey}
+    s3:
+      bucket: ${cloud.aws.s3.bucket}
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: 'false'
