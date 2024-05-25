@@ -70,7 +70,7 @@ jobs:
             # 기존 컨테이너를 제거합니다.
             sudo docker rm fiurinee || true 
             # 새 컨테이너를 실행하면서 환경 변수를 전달합니다.
-            sudo docker run -d -p 3000:8080 --name fiurinee \
+            sudo docker run -d -p 8080:8080 --name fiurinee \
               -e DB_URL=jdbc:postgresql://database-fiurinee.czyqweykwib4.ap-northeast-2.rds.amazonaws.com:5432/fiurinee \
               -e DB_USERNAME=${{ secrets.DB_USERNAME }} \
               -e DB_PASSWORD=${{ secrets.DB_PASSWORD }} \
