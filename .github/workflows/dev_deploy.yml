@@ -74,4 +74,7 @@ jobs:
               -e DB_URL=jdbc:postgresql://database-fiurinee.czyqweykwib4.ap-northeast-2.rds.amazonaws.com:5432/fiurinee \
               -e DB_USERNAME=${{ secrets.DB_USERNAME }} \
               -e DB_PASSWORD=${{ secrets.DB_PASSWORD }} \
+              -e AWS_ACCESSKEY=${{ secrets.AWS_ACCESSKEY }} \
+              -e AWS_SECRETKEY=${{ secrets.AWS_SECRETKEY }} \
+              -e AWS_BUCKET=${{ secrets.AWS_BUCKET }} \
               qormoon/fiurinee_docker
