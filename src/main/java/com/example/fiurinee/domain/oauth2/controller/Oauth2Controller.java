@@ -17,13 +17,13 @@ public class Oauth2Controller {
     }
 
     @GetMapping("/oauth2/authorization/google")
-    public RedirectView googleAuthorization() {
+    public String googleAuthorization() {
         String authorizationRequest = "https://accounts.google.com/o/oauth2/auth" +
                 "?client_id=${spring.google.client_id}" +
                 "&redirect_uri=login/oauth2/code/google" +
                 "&response_type=code" +
                 "&scope=email%20profile";
-        return new RedirectView(authorizationRequest);
+        return authorizationRequest;
     }
 
     @GetMapping("login/oauth2/code/google")
