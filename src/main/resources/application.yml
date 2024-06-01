@@ -19,10 +19,10 @@ logging.level:
 cloud:
   aws:
     credentials:
-      accessKey: ${cloud.aws.credentials.accessKey}
-      secretKey: ${cloud.aws.credentials.secretKey}
+      accessKey: ${AWS_ACCESSKEY}
+      secretKey: ${AWS_SECRETKEY}
     s3:
-      bucket: ${cloud.aws.s3.bucket}
+      bucket: ${AWS_BUCKET}
     region:
       static: ap-northeast-2
     stack:

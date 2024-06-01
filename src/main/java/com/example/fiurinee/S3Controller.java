@@ -16,7 +16,7 @@ public class S3Controller {
     private final AmazonS3 s3Client;
     private final String bucketName;
 
-    public S3Controller(AmazonS3 s3Client, @Value("${cloud.aws.s3.bucket}") String bucketName) {
+    public S3Controller(AmazonS3 s3Client, @Value("${AWS_BUCKET}") String bucketName) {
         this.s3Client = s3Client;
         this.bucketName = bucketName;
     }
