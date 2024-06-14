@@ -66,7 +66,7 @@ public class SecurityConfig {
 
         http.authorizeHttpRequests(authorizationManagerRequestMatcherRegistry ->
                 authorizationManagerRequestMatcherRegistry
-                        .requestMatchers("/oauth2/login", "/login/oauth2/code/**", "/oauth2/authorization/**").permitAll()
+                        .requestMatchers("/oauth2/login", "/login/oauth2/code/**", "/oauth2/authorization/**","/login/oauth2/code/google").permitAll()
                         .anyRequest().authenticated());
 
         http.addFilterBefore(jwtVerifyFilter(), UsernamePasswordAuthenticationFilter.class);
