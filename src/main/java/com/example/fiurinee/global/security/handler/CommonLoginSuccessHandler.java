@@ -2,7 +2,7 @@ package com.example.fiurinee.global.security.handler;
 
 import com.example.fiurinee.domain.jwt.utils.JwtConstants;
 import com.example.fiurinee.domain.jwt.utils.JwtUtils;
-import com.example.fiurinee.domain.member.data.PrincipalDetail;
+import com.example.fiurinee.domain.member.entity.PrincipalDetail;
 import com.google.gson.Gson;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

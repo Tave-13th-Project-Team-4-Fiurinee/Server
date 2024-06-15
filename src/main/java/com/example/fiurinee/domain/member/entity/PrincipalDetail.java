@@ -1,4 +1,4 @@
-package com.example.fiurinee.domain.member.data;
+package com.example.fiurinee.domain.member.entity;
 
 import com.example.fiurinee.domain.member.dto.MemberDto;
 import lombok.Data;

@@ -1,11 +1,10 @@
-package com.example.fiurinee.domain.member.data;
+package com.example.fiurinee.domain.member.entity;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.security.oauth2.core.OAuth2AccessToken;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

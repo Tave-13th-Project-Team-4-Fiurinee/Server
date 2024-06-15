@@ -1,11 +1,9 @@
 package com.example.fiurinee.domain.oauth2.controller;
 
-import com.example.fiurinee.domain.member.data.Member;
-import com.example.fiurinee.domain.member.repository.MemberRepository;
+import com.example.fiurinee.domain.member.entity.Member;
 import com.example.fiurinee.domain.member.service.MemberService;
 import com.example.fiurinee.domain.oauth2.dto.KakaoLogoutDto;
 import com.example.fiurinee.global.api.CallApi;
-import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatusCode;

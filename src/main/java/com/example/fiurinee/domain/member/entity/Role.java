@@ -1,4 +1,4 @@
-package com.example.fiurinee.domain.member.data;
+package com.example.fiurinee.domain.member.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

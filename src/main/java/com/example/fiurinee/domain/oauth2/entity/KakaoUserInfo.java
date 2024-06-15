@@ -1,4 +1,4 @@
-package com.example.fiurinee.domain.oauth2.data;
+package com.example.fiurinee.domain.oauth2.entity;
 
 import java.util.Map;
 
