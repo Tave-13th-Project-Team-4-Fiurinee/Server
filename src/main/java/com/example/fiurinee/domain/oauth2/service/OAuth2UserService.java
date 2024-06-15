@@ -52,7 +52,9 @@ public class OAuth2UserService extends DefaultOAuth2UserService {
     }
 
     public Member saveSocialMember(String socialId, String name, String email, String kakaoAccessToken) {
-        Member newMember = Member.createMember(email, name, socialId, Role.USER,kakaoAccessToken);
+        int defaultProfileImage = 0;
+        boolean defaultAlarm = false;
+        Member newMember = Member.createMember(email, name, socialId, Role.USER,kakaoAccessToken, defaultProfileImage, defaultAlarm);
         return memberRepository.save(newMember);
     }
 
