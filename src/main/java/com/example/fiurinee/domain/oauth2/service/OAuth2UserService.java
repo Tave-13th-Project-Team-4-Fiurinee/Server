@@ -1,22 +1,19 @@
 package com.example.fiurinee.domain.oauth2.service;
 
-import com.example.fiurinee.domain.member.data.Member;
-import com.example.fiurinee.domain.member.data.PrincipalDetail;
-import com.example.fiurinee.domain.member.data.Role;
+import com.example.fiurinee.domain.member.entity.Member;
+import com.example.fiurinee.domain.member.entity.PrincipalDetail;
+import com.example.fiurinee.domain.member.entity.Role;
 import com.example.fiurinee.domain.member.dto.MemberDto;
 import com.example.fiurinee.domain.member.repository.MemberRepository;
-import com.example.fiurinee.domain.oauth2.data.KakaoUserInfo;
+import com.example.fiurinee.domain.oauth2.entity.KakaoUserInfo;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
-import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AccessToken;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
-import org.springframework.security.oauth2.core.OAuth2RefreshToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 

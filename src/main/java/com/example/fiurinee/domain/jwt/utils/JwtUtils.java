@@ -1,8 +1,8 @@
 package com.example.fiurinee.domain.jwt.utils;
 
 import com.example.fiurinee.domain.jwt.exception.CustomExpiredJwtException;
-import com.example.fiurinee.domain.member.data.PrincipalDetail;
-import com.example.fiurinee.domain.member.data.Role;
+import com.example.fiurinee.domain.member.entity.PrincipalDetail;
+import com.example.fiurinee.domain.member.entity.Role;
 import com.example.fiurinee.domain.member.dto.MemberDto;
 import com.example.fiurinee.global.exception.CustomException;
 import io.jsonwebtoken.ExpiredJwtException;

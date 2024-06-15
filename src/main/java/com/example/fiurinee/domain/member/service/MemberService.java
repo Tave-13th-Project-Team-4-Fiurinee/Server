@@ -1,14 +1,12 @@
 package com.example.fiurinee.domain.member.service;
 
-import com.example.fiurinee.domain.member.data.Member;
+import com.example.fiurinee.domain.member.entity.Member;
 import com.example.fiurinee.domain.member.repository.MemberRepository;
 import com.example.fiurinee.global.exception.CustomException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)

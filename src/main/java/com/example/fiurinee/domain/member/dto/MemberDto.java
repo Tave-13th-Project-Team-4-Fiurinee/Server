@@ -1,6 +1,6 @@
 package com.example.fiurinee.domain.member.dto;
 
-import com.example.fiurinee.domain.member.data.Role;
+import com.example.fiurinee.domain.member.entity.Role;
 
 public record MemberDto(
         Long id,
