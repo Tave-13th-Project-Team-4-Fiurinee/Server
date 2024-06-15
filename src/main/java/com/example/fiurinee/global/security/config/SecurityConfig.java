@@ -1,6 +1,7 @@
 package com.example.fiurinee.global.security.config;
 
 import com.example.fiurinee.domain.oauth2.service.OAuth2UserService;
+import com.example.fiurinee.global.redis.utils.RedisUtil;
 import com.example.fiurinee.global.security.filter.JwtVerifyFilter;
 import com.example.fiurinee.global.security.handler.CommonLoginSuccessHandler;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +26,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SecurityConfig {
     private final OAuth2UserService oAuth2UserService;
+    private final RedisUtil redisUtil;
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
@@ -53,7 +55,7 @@ public class SecurityConfig {
 
     @Bean
     public JwtVerifyFilter jwtVerifyFilter() {
-        return new JwtVerifyFilter();
+        return new JwtVerifyFilter(redisUtil);
     }
 
     @Bean

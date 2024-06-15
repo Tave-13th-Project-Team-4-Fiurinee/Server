@@ -1,4 +1,4 @@
-package com.example.fiurinee.global.api;
+package com.example.fiurinee.global.api.service;
 
 import com.example.fiurinee.domain.member.entity.Member;
 import com.example.fiurinee.domain.oauth2.dto.KakaoLogoutDto;
@@ -10,11 +10,11 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 @Service
 @Transactional
-public class CallApi {
+public class CallApiService {
 
     private final WebClient webClient;
 
-    public CallApi(WebClient.Builder webClientBuilder) {
+    public CallApiService(WebClient.Builder webClientBuilder) {
         this.webClient = webClientBuilder.build();
     }
 
