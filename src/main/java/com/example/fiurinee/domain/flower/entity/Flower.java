@@ -4,6 +4,7 @@ import com.example.fiurinee.domain.recommendFlower.entity.RecommendFlower;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.net.URL;
 import java.util.List;
 
 @Entity
@@ -17,9 +18,9 @@ public class Flower {
     private Long flowerId;
 
     private String name;
-    private String period;
+    private int period;
     private String flowerLanguage;
-    private String image;
+    private URL image;
     private String explain;
 
     @OneToMany(mappedBy = "flower", cascade = CascadeType.ALL)
