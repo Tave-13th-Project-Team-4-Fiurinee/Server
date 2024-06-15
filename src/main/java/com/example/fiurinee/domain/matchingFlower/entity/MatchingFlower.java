@@ -22,4 +22,6 @@ public class MatchingFlower {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "flowerId")
     private Flower flower;
+
+    private Long flowerId;
 }
