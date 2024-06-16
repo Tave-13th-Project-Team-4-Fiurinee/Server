@@ -24,13 +24,11 @@ public class OAuth2Controller {
     private final MemberService memberService;
     private final RedisUtil redisUtil;
 
-    @GetMapping("/member/logout/{id}")
+    @GetMapping("/member/{id}/logout")
     public ResponseEntity<KakaoLogoutDto> logoutKakao(@PathVariable("id") Long id, @RequestHeader("Authorization") String accessToken){
         Member byId = memberService.findById(id);
 
         ClientResponse clientResponse = CallApiService.checkKakaoToken(byId.getKakaoAccessToken());
-
-        //redis refreshtoken 테이블에서 refreshtoken 삭제 해야함.
 
         //redis를 통한 블랙리스트 등록
         redisUtil.setBlackList(JwtUtils.getTokenFromHeader(accessToken), "accessToken", 30);
@@ -42,7 +40,7 @@ public class OAuth2Controller {
         return ResponseEntity.ok(CallApiService.logoutKakao(byId, byId.getKakaoAccessToken()));
     }
 
-    @GetMapping("/member/resign/{id}")
+    @GetMapping("/member/{id}/resign")
     public ResponseEntity<?> resignKakao(@PathVariable("id") Long id){
         Member byId = memberService.findById(id);
 

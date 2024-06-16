@@ -50,7 +50,7 @@ public class SecurityConfig {
 
     @Bean
     public CommonLoginSuccessHandler commonLoginSuccessHandler() {
-        return new CommonLoginSuccessHandler();
+        return new CommonLoginSuccessHandler(redisUtil);
     }
 
     @Bean
@@ -68,7 +68,7 @@ public class SecurityConfig {
 
         http.authorizeHttpRequests(authorizationManagerRequestMatcherRegistry ->
                 authorizationManagerRequestMatcherRegistry
-                        .requestMatchers("/oauth2/login", "/login/oauth2/code/**", "/oauth2/authorization/**","/login/oauth2/code/google").permitAll()
+                        .requestMatchers("/oauth2/login", "/login/oauth2/code/**", "/oauth2/authorization/**","/login/oauth2/code/google","/member/*/refresh").permitAll()
                         .anyRequest().authenticated());
 
         http.addFilterBefore(jwtVerifyFilter(), UsernamePasswordAuthenticationFilter.class);
