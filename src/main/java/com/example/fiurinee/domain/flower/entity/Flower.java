@@ -60,4 +60,9 @@ public class Flower {
     public void setRecommendFlowers(List<RecommendFlower> recommendFlowers) {
         this.recommendFlowers = recommendFlowers;
     }
+
+    @Transient
+    public Long getPeriodMonth() {
+        return this.period / 100;
+    }
 }

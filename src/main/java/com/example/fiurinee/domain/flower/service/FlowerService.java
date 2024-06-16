@@ -8,14 +8,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.FileInputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.stream.Collectors;
 
 @Service
 public class FlowerService {
@@ -85,5 +87,31 @@ public class FlowerService {
             System.err.println("유효하지 않은 URL: " + urlString);
             return null;
         }
+    }
+
+    public List<Map<String, Object>> getSeasonFlowers() {
+        int currentMonth = LocalDate.now().getMonthValue();
+        Long startPeriod = (long) (currentMonth * 100);
+        Long endPeriod = startPeriod + 99; // 현재 월의 마지막 날을 포함하도록 설정
+        List<Flower> flowers = flowerRepository.findByPeriodMonth(startPeriod, endPeriod);
+
+        if (flowers.isEmpty()) {
+            System.out.println("No flowers found for period month: " + currentMonth);
+            return List.of();
+        }
+
+        Random random = new Random();
+        List<Flower> randomFlowers = flowers.stream()
+                .skip(random.nextInt(flowers.size() - 5 + 1)) // random skip
+                .limit(5)
+                .collect(Collectors.toList());
+
+        return randomFlowers.stream().map(flower -> Map.<String, Object>of(
+                "Flower", flower.getName(),
+                "period", String.format("%02d", flower.getPeriod() / 100),
+                "flower_language", flower.getFlowerLanguage(),
+                "explain", flower.getExplain(),
+                "image", flower.getImage().toString()
+        )).collect(Collectors.toList());
     }
 }
