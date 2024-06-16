@@ -26,17 +26,23 @@ public class Member {
 
     private String kakaoAccessToken;
 
+    private int profileImage;
+
+    private boolean alarm;
+
     @Builder
-    private Member(String email, String name, String socialId, Role role, String kakaoAccessToken) {
+    private Member(String email, String name, String socialId, Role role, String kakaoAccessToken, int profileImage, boolean alarm) {
         this.email = email;
         this.name = name;
         this.socialId = socialId;
         this.role = role;
         this.kakaoAccessToken = kakaoAccessToken;
+        this.profileImage = profileImage;
+        this.alarm = alarm;
     }
 
-    public static Member createMember(String email, String name, String socialId, Role role, String kakaoAccessToken) {
-        return new Member(email, name, socialId, role, kakaoAccessToken);
+    public static Member createMember(String email, String name, String socialId, Role role, String kakaoAccessToken, int profileImage, boolean alarm) {
+        return new Member(email, name, socialId, role, kakaoAccessToken,profileImage, alarm);
     }
 
     public void updateKakaoToken(String kakaoAccessToken){
