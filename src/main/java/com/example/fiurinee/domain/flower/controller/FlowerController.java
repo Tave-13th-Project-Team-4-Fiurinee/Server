@@ -21,6 +21,11 @@ public class FlowerController {
         return flowerService.getSeasonFlowers();
     }
 
+    @GetMapping("/today")
+    public Map<String, Object> getTodayFlower() {
+        return flowerService.getTodayFlower();
+    }
+
 
 
 

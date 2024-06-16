@@ -114,4 +114,26 @@ public class FlowerService {
                 "image", flower.getImage().toString()
         )).collect(Collectors.toList());
     }
+
+    public Map<String, Object> getTodayFlower() {
+        LocalDate today = LocalDate.now();
+        Long todayPeriod = (long) (today.getMonthValue() * 100 + today.getDayOfMonth());
+        List<Flower> flowers = flowerRepository.findByPeriodMonth(todayPeriod, todayPeriod);
+
+        if (flowers.isEmpty()) {
+            System.out.println("No flowers found for period: " + todayPeriod);
+            return Map.of();
+        }
+
+        Random random = new Random();
+        Flower randomFlower = flowers.get(random.nextInt(flowers.size()));
+
+        return Map.of(
+                "Flower", randomFlower.getName(),
+                "period", String.format("%02d", randomFlower.getPeriod() / 100),
+                "flower_language", randomFlower.getFlowerLanguage(),
+                "explain", randomFlower.getExplain(),
+                "image", randomFlower.getImage().toString()
+        );
+    }
 }
