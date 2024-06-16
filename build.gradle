@@ -51,6 +51,9 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+	//csv
+	implementation 'com.opencsv:opencsv:5.5.2'
 }
 
 tasks.named('test') {
