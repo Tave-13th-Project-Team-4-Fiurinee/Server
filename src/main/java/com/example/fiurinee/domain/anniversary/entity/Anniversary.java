@@ -17,7 +17,7 @@ public class Anniversary {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Timestamp anniersaryDate;
+    private Timestamp anniversaryDate;
 
     private String type;
 
