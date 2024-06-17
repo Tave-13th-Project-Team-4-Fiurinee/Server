@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class SwaggerConfig {
     @Bean
-    public OpenAPI UMCstudyAPI() {
+    public OpenAPI FiurineeAPI() {
         Info info = new Info()
                 .title("Fiurinee API")
                 .description("Fiurinee API 명세서")
