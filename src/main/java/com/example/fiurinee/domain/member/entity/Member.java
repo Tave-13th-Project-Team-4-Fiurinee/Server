@@ -1,10 +1,17 @@
 package com.example.fiurinee.domain.member.entity;
 
+import com.example.fiurinee.domain.anniversary.entity.Anniversary;
+import com.example.fiurinee.domain.inputMessage.entity.InputMessage;
+import com.example.fiurinee.domain.preferList.entity.PreferList;
+import com.example.fiurinee.domain.recommendComment.entity.RecommendComment;
+import com.example.fiurinee.domain.recommendFlower.entity.RecommendFlower;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -29,6 +36,21 @@ public class Member {
     private int profileImage;
 
     private boolean alarm;
+
+    @OneToMany(mappedBy = "member")
+    private List<PreferList> preferLists;
+
+    @OneToMany(mappedBy = "member")
+    private List<Anniversary> anniversaries;
+
+    @OneToMany(mappedBy = "member")
+    private List<RecommendFlower> recommendFlowers;
+
+    @OneToMany(mappedBy = "member")
+    private List<InputMessage> inputMessages;
+
+    @OneToMany(mappedBy = "member")
+    private List<RecommendComment> recommendComments;
 
     @Builder
     private Member(String email, String name, String socialId, Role role, String kakaoAccessToken, int profileImage, boolean alarm) {
