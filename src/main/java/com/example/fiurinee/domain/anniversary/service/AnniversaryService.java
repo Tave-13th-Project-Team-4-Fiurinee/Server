@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 
 @Service
 public class AnniversaryService {
@@ -20,7 +23,8 @@ public class AnniversaryService {
 
     public Anniversary addAnniversary(Long memberId, LocalDate date, String type) {
         Member member = memberRepository.findById(memberId).orElseThrow(() -> new IllegalArgumentException("Invalid member ID"));
-        Timestamp timestamp = Timestamp.valueOf(date.atStartOfDay());
+        ZonedDateTime zonedDateTime = date.atStartOfDay(ZoneId.of("UTC"));
+        Timestamp timestamp = Timestamp.from(zonedDateTime.toInstant());
         Anniversary anniversary = Anniversary.builder()
                 .anniversaryDate(timestamp)
                 .type(type)
