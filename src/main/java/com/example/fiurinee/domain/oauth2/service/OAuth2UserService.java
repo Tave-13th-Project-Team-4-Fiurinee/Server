@@ -17,6 +17,7 @@ import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
+import java.net.URL;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Optional;
@@ -52,7 +53,7 @@ public class OAuth2UserService extends DefaultOAuth2UserService {
     }
 
     public Member saveSocialMember(String socialId, String name, String email, String kakaoAccessToken) {
-        int defaultProfileImage = 0;
+        int defaultProfileImage = 11;
         boolean defaultAlarm = false;
         Member newMember = Member.createMember(email, name, socialId, Role.USER,kakaoAccessToken, defaultProfileImage, defaultAlarm);
         return memberRepository.save(newMember);
