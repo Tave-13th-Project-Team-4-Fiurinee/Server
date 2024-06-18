@@ -12,6 +12,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.net.URL;
 import java.util.List;
 
 @Getter
@@ -72,5 +73,9 @@ public class Member {
 
     public void updateKakaoToken(String kakaoAccessToken){
         this.kakaoAccessToken = kakaoAccessToken;
+    }
+
+    public void updateProfileImage(int profileImage) {
+        this.profileImage = profileImage;
     }
 }
