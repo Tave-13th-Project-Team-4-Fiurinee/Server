@@ -5,6 +5,7 @@ import com.example.fiurinee.domain.inputMessage.entity.InputMessage;
 import com.example.fiurinee.domain.preferList.entity.PreferList;
 import com.example.fiurinee.domain.recommendComment.entity.RecommendComment;
 import com.example.fiurinee.domain.recommendFlower.entity.RecommendFlower;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -37,19 +38,21 @@ public class Member {
 
     private boolean alarm;
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<PreferList> preferLists;
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Anniversary> anniversaries;
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<RecommendFlower> recommendFlowers;
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<InputMessage> inputMessages;
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    @JsonManagedReference
+
     private List<RecommendComment> recommendComments;
 
     @Builder

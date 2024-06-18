@@ -1,6 +1,7 @@
 package com.example.fiurinee.domain.anniversary.entity;
 
 import com.example.fiurinee.domain.member.entity.Member;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,6 +24,7 @@ public class Anniversary {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "memberId")
+    @JsonIgnore
     private Member member;
 
 
