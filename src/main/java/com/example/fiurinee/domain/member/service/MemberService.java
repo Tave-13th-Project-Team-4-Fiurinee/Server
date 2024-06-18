@@ -1,5 +1,6 @@
 package com.example.fiurinee.domain.member.service;
 
+import com.example.fiurinee.domain.member.dto.MemberResponseDTO;
 import com.example.fiurinee.domain.member.entity.Member;
 import com.example.fiurinee.domain.member.repository.MemberRepository;
 import com.example.fiurinee.global.exception.CustomException;
@@ -30,4 +31,11 @@ public class MemberService {
         memberRepository.delete(member);
         return true;
     }
+
+    public MemberResponseDTO getMemberDtoById(Long id) {
+        Member member = memberRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid member ID"));
+        return MemberResponseDTO.of(member);
+    }
+
+
 }

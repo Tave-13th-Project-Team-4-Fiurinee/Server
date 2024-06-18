@@ -1,5 +1,6 @@
 package com.example.fiurinee.domain.member.controller.api;
 
+import com.example.fiurinee.domain.member.dto.MemberResponseDTO;
 import com.example.fiurinee.domain.member.entity.Member;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -32,5 +33,5 @@ public interface MemberApi {
     @ApiResponse(responseCode = "401", description = "인증 실패")
     @ApiResponse(responseCode = "404", description = "멤버를 찾을 수 없음")
     @GetMapping("/member/{id}")
-    ResponseEntity<Member> getMemberById(@PathVariable("id") Long id);
+    ResponseEntity<MemberResponseDTO> getMemberById(@PathVariable("id") Long id);
 }

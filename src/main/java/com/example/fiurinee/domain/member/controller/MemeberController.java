@@ -1,6 +1,7 @@
 package com.example.fiurinee.domain.member.controller;
 
 import com.example.fiurinee.domain.member.controller.api.MemberApi;
+import com.example.fiurinee.domain.member.dto.MemberResponseDTO;
 import com.example.fiurinee.domain.member.entity.Member;
 import com.example.fiurinee.domain.member.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +17,8 @@ public class MemeberController implements MemberApi {
     private MemberService memberService;
 
     @Override
-    public ResponseEntity<Member> getMemberById(@PathVariable("id") Long id) {
-        Member member = memberService.findById(id);
-        return ResponseEntity.ok(member);
+    public ResponseEntity<MemberResponseDTO> getMemberById(@PathVariable("id") Long id) {
+        MemberResponseDTO memberResponseDTO = memberService.getMemberDtoById(id);
+        return ResponseEntity.ok(memberResponseDTO);
     }
 }
