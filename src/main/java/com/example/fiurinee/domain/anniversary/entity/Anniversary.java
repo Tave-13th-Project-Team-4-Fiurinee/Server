@@ -28,6 +28,11 @@ public class Anniversary {
     @JsonIgnore
     private Member member;
 
+    public void setAnniversaryDate(Timestamp anniversaryDate) {
+        this.anniversaryDate = anniversaryDate;
+    }
 
-
+    public void setType(AnniversaryType type) {
+        this.type = type;
+    }
 }
