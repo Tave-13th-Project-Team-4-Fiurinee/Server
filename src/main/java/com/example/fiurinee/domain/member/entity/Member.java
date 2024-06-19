@@ -53,7 +53,6 @@ public class Member {
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     @JsonManagedReference
-
     private List<RecommendComment> recommendComments;
 
     @Builder

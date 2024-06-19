@@ -14,17 +14,17 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MemberResponseDTO {
-    private Long id;
+    private Long memberId;
     private String email;
-    private String name;
+    private String nickname;
     private int profileImage;
     private List<Map<String, Object>> anniversaries;
 
     public static MemberResponseDTO of(Member member) {
         return MemberResponseDTO.builder()
-                .id(member.getId())
+                .memberId(member.getId())
                 .email(member.getEmail())
-                .name(member.getName())
+                .nickname(member.getName())
                 .profileImage(member.getProfileImage())
                 .anniversaries(member.getAnniversaries().stream()
                         .map(anniversary -> Map.<String, Object>of(
