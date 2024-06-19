@@ -19,4 +19,6 @@ public class ImageRequestDTO {
     public void setBackgroundCode(int backgroundCode) {
         this.backgroundCode = backgroundCode;
     }
+
+
 }

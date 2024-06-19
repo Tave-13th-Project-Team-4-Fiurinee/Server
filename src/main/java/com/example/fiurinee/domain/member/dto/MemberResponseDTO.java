@@ -19,6 +19,7 @@ public class MemberResponseDTO {
     private String email;
     private String nickname;
     private int profileImage;
+    private boolean alarm;
     private List<Map<String, Object>> anniversaries;
 
     private static AnniversaryService anniversaryService = new AnniversaryService();
@@ -29,6 +30,7 @@ public class MemberResponseDTO {
                 .email(member.getEmail())
                 .nickname(member.getName())
                 .profileImage(member.getProfileImage())
+                .alarm(member.isAlarm())
                 .anniversaries(member.getAnniversaries().stream()
                         .map(anniversary -> Map.<String, Object>of(
                                 "id", anniversary.getId(),
