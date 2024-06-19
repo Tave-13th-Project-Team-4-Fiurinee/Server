@@ -33,6 +33,10 @@ public class ImageService {
         String flowerImagePath = "images/flower_" + flowerCode + ".png";
         String backgroundImagePath = "images/background_" + backgroundCode + ".png";
 
+        if (!doesObjectExist(flowerImagePath) || !doesObjectExist(backgroundImagePath)) {
+            throw new IllegalArgumentException("One or more image files do not exist in S3");
+        }
+
         URL flowerImageUrl = s3Client.getUrl(bucketName, flowerImagePath);
         URL backgroundImageUrl = s3Client.getUrl(bucketName, backgroundImagePath);
 
@@ -44,12 +48,21 @@ public class ImageService {
     }
 
     public void updateProfileImage(Long memberId, int flowerCode, int backgroundCode) {
+        String flowerImagePath = "images/flower_" + (flowerCode * 10) + ".png";
+        String backgroundImagePath = "images/background_" + backgroundCode + ".png";
+
+        if (!doesObjectExist(flowerImagePath) || !doesObjectExist(backgroundImagePath)) {
+            throw new IllegalArgumentException("One or more image files do not exist in S3");
+        }
+
         Member member = memberRepository.findById(memberId).orElseThrow(() -> new IllegalArgumentException("Invalid member ID"));
         int profileImageCode = flowerCode * 10 + backgroundCode;
         member.updateProfileImage(profileImageCode);
         memberRepository.save(member);
     }
 
-
+    private boolean doesObjectExist(String path) {
+        return s3Client.doesObjectExist(bucketName, path);
+    }
 
 }
