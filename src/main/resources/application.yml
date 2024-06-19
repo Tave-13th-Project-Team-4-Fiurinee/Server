@@ -11,6 +11,14 @@ spring:
       hibernate:
         #      show_sql: true
         format_sql: true
+  redis:
+    pool:
+      min-idle: 0
+      max-idle: 8
+      max-active: 8
+    port: 6379
+    host: 127.0.0.1
+    
   security:
     oauth2:
       client:

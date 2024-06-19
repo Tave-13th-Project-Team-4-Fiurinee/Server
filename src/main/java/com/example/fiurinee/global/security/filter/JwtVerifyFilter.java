@@ -4,11 +4,13 @@ import com.example.fiurinee.domain.jwt.exception.CustomExpiredJwtException;
 import com.example.fiurinee.domain.jwt.utils.JwtConstants;
 import com.example.fiurinee.domain.jwt.utils.JwtUtils;
 import com.example.fiurinee.global.exception.CustomException;
+import com.example.fiurinee.global.redis.utils.RedisUtil;
 import com.google.gson.Gson;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,6 +22,7 @@ import java.io.PrintWriter;
 import java.util.Map;
 
 @Slf4j
+@RequiredArgsConstructor
 public class JwtVerifyFilter extends OncePerRequestFilter {
     // 소셜 로그인 관련 URI 추가
     private static final String[] whitelist = {"/signUp", "/login", "/refresh", "/", "/index.html", "/oauth2/login", "/login/oauth2/code/*", "/oauth2/authorization/kakao","/member/*/refresh","/swagger-ui/index.html", "/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**", "/v3/api-docs"};
@@ -47,6 +50,10 @@ public class JwtVerifyFilter extends OncePerRequestFilter {
         try {
             checkAuthorizationHeader(authHeader);
             String token = JwtUtils.getTokenFromHeader(authHeader);
+            System.out.println("token = " + token);
+            if (redisUtil.hasKeyBlackList(token)){
+                throw new CustomException("로그아웃된 사용자 입니다.");
+            }
             Authentication authentication = JwtUtils.getAuthentication(token);
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
