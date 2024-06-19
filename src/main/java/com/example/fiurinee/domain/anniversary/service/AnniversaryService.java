@@ -14,6 +14,11 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class AnniversaryService {
@@ -81,5 +86,39 @@ public class AnniversaryService {
         }
     }
 
+
+    public List<Map<String, Integer>> calculateDDay(Anniversary anniversary) {
+        List<Map<String, Integer>> dDayList = new ArrayList<>();
+        LocalDate today = LocalDate.now();
+        LocalDateTime anniversaryDateTime = anniversary.getAnniversaryDate().toLocalDateTime();
+        LocalDate anniversaryDate = anniversaryDateTime.toLocalDate();
+        long yearsDifference = ChronoUnit.YEARS.between(anniversaryDate, today);
+
+        if (anniversary.getType() == AnniversaryType.연인) {
+            int daysPassed = (int) ChronoUnit.DAYS.between(anniversaryDate, today);
+            int nextDay = ((daysPassed / 100) + 1) * 100;
+
+            for (int i = 0; i < 2; i++) {
+                LocalDate hundredDays = anniversaryDate.plusDays(nextDay + i * 100);
+                if (!hundredDays.isBefore(today)) {
+                    Map<String, Integer> dDay = new HashMap<>();
+                    dDay.put((nextDay + i * 100) + "days", (int) ChronoUnit.DAYS.between(today, hundredDays) - 1);
+                    dDayList.add(dDay);
+                }
+            }
+        }
+
+        for (int i = 1; i <= yearsDifference + 1; i++) {
+            LocalDate yearAnniversary = anniversaryDate.plusYears(i);
+            if (!yearAnniversary.isBefore(today)) {
+                Map<String, Integer> dDay = new HashMap<>();
+                dDay.put("year", (int) ChronoUnit.DAYS.between(today, yearAnniversary));
+                dDayList.add(dDay);
+            }
+        }
+
+        return dDayList;
+
+    }
 
 }

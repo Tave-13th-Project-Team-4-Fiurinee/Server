@@ -1,5 +1,6 @@
 package com.example.fiurinee.domain.member.dto;
 
+import com.example.fiurinee.domain.anniversary.service.AnniversaryService;
 import com.example.fiurinee.domain.member.entity.Member;
 import lombok.*;
 
@@ -20,6 +21,8 @@ public class MemberResponseDTO {
     private int profileImage;
     private List<Map<String, Object>> anniversaries;
 
+    private static AnniversaryService anniversaryService = new AnniversaryService();
+
     public static MemberResponseDTO of(Member member) {
         return MemberResponseDTO.builder()
                 .memberId(member.getId())
@@ -30,7 +33,8 @@ public class MemberResponseDTO {
                         .map(anniversary -> Map.<String, Object>of(
                                 "id", anniversary.getId(),
                                 "anniversaryDate", anniversary.getAnniversaryDate().toString(),
-                                "type", anniversary.getType().name()
+                                "type", anniversary.getType().name(),
+                                "d-day", anniversaryService.calculateDDay(anniversary)
                         ))
                         .collect(Collectors.toList()))
                 .build();
