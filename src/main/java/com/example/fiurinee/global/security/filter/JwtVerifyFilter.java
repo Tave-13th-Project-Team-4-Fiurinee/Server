@@ -28,6 +28,7 @@ public class JwtVerifyFilter extends OncePerRequestFilter {
     private static final String[] whitelist = {"/signUp", "/login", "/refresh", "/", "/index.html", "/oauth2/login", "/login/oauth2/code/*", "/oauth2/authorization/kakao","/member/*/refresh","/swagger-ui/index.html", "/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**", "/v3/api-docs"};
     private final RedisUtil redisUtil;
 
+
     private static void checkAuthorizationHeader(String header) {
         if (header == null) {
             throw new CustomException("토큰이 전달되지 않았습니다");

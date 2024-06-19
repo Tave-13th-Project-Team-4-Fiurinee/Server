@@ -1,10 +1,19 @@
 package com.example.fiurinee.domain.member.entity;
 
+import com.example.fiurinee.domain.anniversary.entity.Anniversary;
+import com.example.fiurinee.domain.inputMessage.entity.InputMessage;
+import com.example.fiurinee.domain.preferList.entity.PreferList;
+import com.example.fiurinee.domain.recommendComment.entity.RecommendComment;
+import com.example.fiurinee.domain.recommendFlower.entity.RecommendFlower;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.net.URL;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -26,20 +35,47 @@ public class Member {
 
     private String kakaoAccessToken;
 
+    private int profileImage;
+
+    private boolean alarm;
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<PreferList> preferLists;
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<Anniversary> anniversaries;
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<RecommendFlower> recommendFlowers;
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<InputMessage> inputMessages;
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    @JsonManagedReference
+
+    private List<RecommendComment> recommendComments;
+
     @Builder
-    private Member(String email, String name, String socialId, Role role, String kakaoAccessToken) {
+    private Member(String email, String name, String socialId, Role role, String kakaoAccessToken, int profileImage, boolean alarm) {
         this.email = email;
         this.name = name;
         this.socialId = socialId;
         this.role = role;
         this.kakaoAccessToken = kakaoAccessToken;
+        this.profileImage = profileImage;
+        this.alarm = alarm;
     }
 
-    public static Member createMember(String email, String name, String socialId, Role role, String kakaoAccessToken) {
-        return new Member(email, name, socialId, role, kakaoAccessToken);
+    public static Member createMember(String email, String name, String socialId, Role role, String kakaoAccessToken, int profileImage, boolean alarm) {
+        return new Member(email, name, socialId, role, kakaoAccessToken,profileImage, alarm);
     }
 
     public void updateKakaoToken(String kakaoAccessToken){
         this.kakaoAccessToken = kakaoAccessToken;
+    }
+
+    public void updateProfileImage(int profileImage) {
+        this.profileImage = profileImage;
     }
 }
