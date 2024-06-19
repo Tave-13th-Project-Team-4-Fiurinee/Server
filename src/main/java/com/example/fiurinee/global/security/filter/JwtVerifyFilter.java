@@ -25,7 +25,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class JwtVerifyFilter extends OncePerRequestFilter {
     // 소셜 로그인 관련 URI 추가
-    private static final String[] whitelist = {"/signUp", "/login", "/refresh", "/", "/index.html", "/oauth2/login", "/login/oauth2/code/*", "/oauth2/authorization/kakao","/member/*/refresh"};
+    private static final String[] whitelist = {"/signUp", "/login", "/refresh", "/", "/index.html", "/oauth2/login", "/login/oauth2/code/*", "/oauth2/authorization/kakao","/member/*/refresh","/swagger-ui/index.html", "/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**", "/v3/api-docs"};
     private final RedisUtil redisUtil;
 
     private static void checkAuthorizationHeader(String header) {
