@@ -1,6 +1,7 @@
 package com.example.fiurinee.domain.image.service;
 
 import com.amazonaws.services.s3.AmazonS3;
+import com.example.fiurinee.domain.image.dto.ImageResponseDTO;
 import com.example.fiurinee.domain.member.entity.Member;
 import com.example.fiurinee.domain.member.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,7 +24,7 @@ public class ImageService {
         this.bucketName = bucketName;
     }
 
-    public Map<String, URL> getImageUrls(Long memberId) {
+    public ImageResponseDTO getImageUrls(Long memberId) {
         Member member = memberRepository.findById(memberId).orElseThrow(() -> new IllegalArgumentException("Invalid member ID"));
         int imageCode = member.getProfileImage();
 
@@ -40,11 +41,12 @@ public class ImageService {
         URL flowerImageUrl = s3Client.getUrl(bucketName, flowerImagePath);
         URL backgroundImageUrl = s3Client.getUrl(bucketName, backgroundImagePath);
 
-        Map<String, URL> imageUrls = new HashMap<>();
-        imageUrls.put("flowerImage", flowerImageUrl);
-        imageUrls.put("backgroundImage", backgroundImageUrl);
+        ImageResponseDTO imageResponseDTO = new ImageResponseDTO();
+        imageResponseDTO.setFlowerImageUrl(flowerImageUrl);
+        imageResponseDTO.setBackgroundImageUrl(backgroundImageUrl);
 
-        return imageUrls;
+
+        return imageResponseDTO;
     }
 
     public void updateProfileImage(Long memberId, int flowerCode, int backgroundCode) {

@@ -1,5 +1,7 @@
 package com.example.fiurinee.domain.image.controller.api;
 
+import com.example.fiurinee.domain.image.dto.ImageRequestDTO;
+import com.example.fiurinee.domain.image.dto.ImageResponseDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
@@ -35,7 +37,7 @@ public interface ImageApi {
     @ApiResponse(responseCode = "401", description = "인증 실패")
     @ApiResponse(responseCode = "404", description = "사용자를 찾을 수 없음")
     @GetMapping("/member/{id}/image")
-    ResponseEntity<Map<String, URL>> getImage(@PathVariable Long id);
+    ResponseEntity<ImageResponseDTO> getImage(@PathVariable Long id);
 
     @Operation(
             summary = "프로필 이미지 수정",
@@ -52,5 +54,5 @@ public interface ImageApi {
     @ApiResponse(responseCode = "401", description = "인증 실패")
     @ApiResponse(responseCode = "404", description = "사용자를 찾을 수 없음")
     @PutMapping("/member/{id}/image")
-    ResponseEntity<Void> updateImage(@PathVariable Long id, @RequestBody Map<String, Integer> imageRequest);
+    ResponseEntity<Void> updateImage(@PathVariable Long id, @RequestBody ImageRequestDTO imageRequest);
 }
