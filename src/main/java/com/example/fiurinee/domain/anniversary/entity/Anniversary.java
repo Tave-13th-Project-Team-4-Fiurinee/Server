@@ -20,13 +20,19 @@ public class Anniversary {
 
     private Timestamp anniversaryDate;
 
-    private String type;
+    @Enumerated(EnumType.STRING)
+    private AnniversaryType type;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "memberId")
     @JsonIgnore
     private Member member;
 
+    public void setAnniversaryDate(Timestamp anniversaryDate) {
+        this.anniversaryDate = anniversaryDate;
+    }
 
-
+    public void setType(AnniversaryType type) {
+        this.type = type;
+    }
 }
