@@ -138,36 +138,24 @@ public class AnniversaryService {
         return dDayList;
     }
 
-    public List<AnniversaryResponseDTO> getTodaysAnniversaries(Member member) {
-        LocalDate today = LocalDate.now();
-        List<AnniversaryResponseDTO> anniversaries = new ArrayList<>();
+    public List<AnniversaryResponseDTO> getDDayZeroAnniversaries(Anniversary anniversary) {
+        List<Map<String, Integer>> allDDays = calculateDDay(anniversary);
+        List<AnniversaryResponseDTO> dDayZeroList = new ArrayList<>();
 
-        member.getAnniversaries().forEach(anniversary -> {
-            LocalDate anniversaryDate = anniversary.getAnniversaryDate().toLocalDateTime().toLocalDate();
-
-            if (anniversary.getType() == AnniversaryType.연인) {
-                if (isDday(anniversaryDate, today, 100)) {
-                    anniversaries.add(new AnniversaryResponseDTO(anniversary.getId(), anniversary.getAnniversaryDate().toString(), anniversary.getType().name()));
+        for (Map<String, Integer> dDay : allDDays) {
+            for (Integer value : dDay.values()) {
+                if (value == 0) {
+                    AnniversaryResponseDTO dto = new AnniversaryResponseDTO();
+                    dto.setId(anniversary.getId());
+                    dto.setAnniversaryDate(anniversary.getAnniversaryDate().toString());
+                    dto.setType(anniversary.getType().toString());
+                    dDayZeroList.add(dto);
                 }
             }
+        }
 
-            if (isDday(anniversaryDate, today, 365)) {
-                anniversaries.add(new AnniversaryResponseDTO(anniversary.getId(), anniversary.getAnniversaryDate().toString(), anniversary.getType().name()));
-            }
-        });
-
-        return anniversaries.isEmpty() ? getNullAnniversaries() : anniversaries;
+        return dDayZeroList;
     }
 
-    private boolean isDday(LocalDate anniversaryDate, LocalDate today, int cycleDays) {
-        long daysBetween = ChronoUnit.DAYS.between(anniversaryDate, today);
-        return daysBetween % cycleDays == 0 && daysBetween >= 0;
-    }
-
-    private List<AnniversaryResponseDTO> getNullAnniversaries() {
-        List<AnniversaryResponseDTO> nullAnniversaries = new ArrayList<>();
-        nullAnniversaries.add(new AnniversaryResponseDTO(null, "null", "null"));
-        return nullAnniversaries;
-    }
 
 }
