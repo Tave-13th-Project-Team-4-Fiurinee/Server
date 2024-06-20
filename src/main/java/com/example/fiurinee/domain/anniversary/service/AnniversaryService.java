@@ -1,6 +1,7 @@
 package com.example.fiurinee.domain.anniversary.service;
 
 import com.example.fiurinee.domain.anniversary.dto.AnniversaryRequestDTO;
+import com.example.fiurinee.domain.anniversary.dto.AnniversaryResponseDTO;
 import com.example.fiurinee.domain.anniversary.entity.Anniversary;
 import com.example.fiurinee.domain.anniversary.entity.AnniversaryType;
 import com.example.fiurinee.domain.anniversary.repository.AnniversaryRepository;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class AnniversaryService {
@@ -108,17 +110,64 @@ public class AnniversaryService {
             }
         }
 
+        boolean isTodayAnniversary = false;
         for (int i = 1; i <= yearsDifference + 1; i++) {
             LocalDate yearAnniversary = anniversaryDate.plusYears(i);
-            if (!yearAnniversary.isBefore(today)) {
+            int daysBetween = (int) ChronoUnit.DAYS.between(today, yearAnniversary);
+            if (daysBetween == 0) {
                 Map<String, Integer> dDay = new HashMap<>();
-                dDay.put("year", (int) ChronoUnit.DAYS.between(today, yearAnniversary));
+                dDay.put("year", daysBetween);
                 dDayList.add(dDay);
+                isTodayAnniversary = true;
+                break;
+            }
+        }
+
+        if (!isTodayAnniversary) {
+            for (int i = 1; i <= yearsDifference + 1; i++) {
+                LocalDate yearAnniversary = anniversaryDate.plusYears(i);
+                if (!yearAnniversary.isBefore(today)) {
+                    Map<String, Integer> dDay = new HashMap<>();
+                    dDay.put("year", (int) ChronoUnit.DAYS.between(today, yearAnniversary));
+                    dDayList.add(dDay);
+                    break;
+                }
             }
         }
 
         return dDayList;
+    }
 
+    public List<AnniversaryResponseDTO> getTodaysAnniversaries(Member member) {
+        LocalDate today = LocalDate.now();
+        List<AnniversaryResponseDTO> anniversaries = new ArrayList<>();
+
+        member.getAnniversaries().forEach(anniversary -> {
+            LocalDate anniversaryDate = anniversary.getAnniversaryDate().toLocalDateTime().toLocalDate();
+
+            if (anniversary.getType() == AnniversaryType.연인) {
+                if (isDday(anniversaryDate, today, 100)) {
+                    anniversaries.add(new AnniversaryResponseDTO(anniversary.getId(), anniversary.getAnniversaryDate().toString(), anniversary.getType().name()));
+                }
+            }
+
+            if (isDday(anniversaryDate, today, 365)) {
+                anniversaries.add(new AnniversaryResponseDTO(anniversary.getId(), anniversary.getAnniversaryDate().toString(), anniversary.getType().name()));
+            }
+        });
+
+        return anniversaries.isEmpty() ? getNullAnniversaries() : anniversaries;
+    }
+
+    private boolean isDday(LocalDate anniversaryDate, LocalDate today, int cycleDays) {
+        long daysBetween = ChronoUnit.DAYS.between(anniversaryDate, today);
+        return daysBetween % cycleDays == 0 && daysBetween >= 0;
+    }
+
+    private List<AnniversaryResponseDTO> getNullAnniversaries() {
+        List<AnniversaryResponseDTO> nullAnniversaries = new ArrayList<>();
+        nullAnniversaries.add(new AnniversaryResponseDTO(null, "null", "null"));
+        return nullAnniversaries;
     }
 
 }
