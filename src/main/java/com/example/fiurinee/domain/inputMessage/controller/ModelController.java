@@ -3,6 +3,7 @@ package com.example.fiurinee.domain.inputMessage.controller;
 
 import com.example.fiurinee.domain.flower.entity.Flower;
 import com.example.fiurinee.domain.flower.service.FlowerService;
+import com.example.fiurinee.domain.inputMessage.controller.api.ModelApi;
 import com.example.fiurinee.domain.inputMessage.dto.*;
 import com.example.fiurinee.domain.inputMessage.service.InputMessageService;
 import com.example.fiurinee.global.api.service.CallApiService;
@@ -19,14 +20,15 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/model")
-public class ModelController {
+public class ModelController implements ModelApi {
 
     private final InputMessageService inputMessageService;
     private final FlowerService flowerService;
 
     @PostMapping("/{id}/ment")
     public ResponseEntity<List<ResponseMentDto>> inputMent(@PathVariable("id") Long id,
-                                                     @RequestBody String ment){
+                                                     @RequestBody RequestMentDto mentDto){
+        String ment = mentDto.ment();
         inputMessageService.saveInputMessage(id, ment);
         String url = "http://localhost:8080/model/test";
 

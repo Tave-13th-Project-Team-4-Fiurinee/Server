@@ -1,0 +1,71 @@
+package com.example.fiurinee.domain.matchingFlower.controller;
+
+import com.example.fiurinee.domain.flower.service.FlowerService;
+import com.example.fiurinee.domain.matchingFlower.dto.HarmonyRecentDto;
+import com.example.fiurinee.domain.matchingFlower.entity.MatchingFlower;
+import com.example.fiurinee.domain.matchingFlower.service.MatchingFlowerService;
+import com.example.fiurinee.domain.member.entity.Member;
+import com.example.fiurinee.domain.member.service.MemberService;
+import com.example.fiurinee.domain.recommendFlower.service.RecommendFlowerService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@RestController
+@RequiredArgsConstructor
+@Slf4j
+@RequestMapping("/member")
+public class MatchingFlowerController {
+
+    private final MemberService memberService;
+    private final MatchingFlowerService matchingFlowerService;
+    private final FlowerService flowerService;
+    private final RecommendFlowerService recommendFlowerService;
+
+    @GetMapping("/{id}/harmony/recent")
+    public ResponseEntity<List<HarmonyRecentDto>> harmonyRecent(@PathVariable("id") Long id){
+        Member byId = memberService.findById(id);
+
+        List<HarmonyRecentDto> re = new ArrayList<>();
+
+        for(long i=1;i<4;i++){
+            List<HarmonyRecentDto> harmonyRecentDtos = HarmonyRecentDto.of(i, byId);
+            if(harmonyRecentDtos != null) {
+                re.add(harmonyRecentDtos.get(0));
+                re.add(harmonyRecentDtos.get(1));
+            }else{
+                break;
+            }
+        }
+
+        return ResponseEntity.ok(re);
+    }
+
+    //----------------------------------------------------------------------------------------------------
+//    @GetMapping("/harmony/test")
+//    public boolean test(){
+//        MatchingFlower build1 = MatchingFlower.builder()
+//                .flower(flowerService.findByNameAndFlowerLanguage("검은포플라", "용기"))
+//                .recommendFlower(recommendFlowerService.findById(5L))
+//                .build();
+//
+//        matchingFlowerService.save(build1);
+//
+//        MatchingFlower build2 = MatchingFlower.builder()
+//                .flower(flowerService.findByNameAndFlowerLanguage("군자란", "고귀"))
+//                .recommendFlower(recommendFlowerService.findById(5L))
+//                .build();
+//
+//        matchingFlowerService.save(build2);
+//
+//        return true;
+//
+//    }
+}

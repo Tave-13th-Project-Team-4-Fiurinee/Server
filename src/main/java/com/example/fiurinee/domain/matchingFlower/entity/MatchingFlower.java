@@ -23,5 +23,4 @@ public class MatchingFlower {
     @JoinColumn(name = "flowerId")
     private Flower flower;
 
-    private Long flowerOrderId;
 }
