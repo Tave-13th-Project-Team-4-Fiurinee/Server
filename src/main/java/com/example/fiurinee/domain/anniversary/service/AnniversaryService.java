@@ -142,17 +142,26 @@ public class AnniversaryService {
         List<Map<String, Integer>> allDDays = calculateDDay(anniversary);
         List<AnniversaryResponseDTO> dDayZeroList = new ArrayList<>();
 
+        List<Map<String, Integer>> zeroDDays = new ArrayList<>();
         for (Map<String, Integer> dDay : allDDays) {
-            for (Integer value : dDay.values()) {
-                if (value == 0) {
-                    AnniversaryResponseDTO dto = new AnniversaryResponseDTO();
-                    dto.setId(anniversary.getId());
-                    dto.setAnniversaryDate(anniversary.getAnniversaryDate().toString());
-                    dto.setType(anniversary.getType().toString());
-                    dDayZeroList.add(dto);
+            for (Map.Entry<String, Integer> entry : dDay.entrySet()) {
+                if (entry.getValue() == 0) {
+                    Map<String, Integer> zeroDay = new HashMap<>();
+                    zeroDay.put(entry.getKey(), entry.getValue());
+                    zeroDDays.add(zeroDay);
                 }
             }
         }
+
+        if (!zeroDDays.isEmpty()) {
+            AnniversaryResponseDTO dto = new AnniversaryResponseDTO();
+            dto.setId(anniversary.getId());
+            dto.setAnniversaryDate(anniversary.getAnniversaryDate().toString());
+            dto.setType(anniversary.getType().toString());
+            dto.setDDays(zeroDDays);
+            dDayZeroList.add(dto);
+        }
+
 
         return dDayZeroList;
     }
