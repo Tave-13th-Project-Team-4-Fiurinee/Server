@@ -1,5 +1,6 @@
 package com.example.fiurinee.domain.flower.service;
 
+import com.example.fiurinee.domain.flower.dto.FlowerResponseDTO;
 import com.example.fiurinee.domain.flower.entity.Flower;
 import com.example.fiurinee.domain.flower.repository.FlowerRepository;
 import com.opencsv.CSVReader;
@@ -89,7 +90,7 @@ public class FlowerService {
         }
     }
 
-    public List<Map<String, Object>> getSeasonFlowers() {
+    public List<FlowerResponseDTO> getSeasonFlowers() {
         int currentMonth = LocalDate.now().getMonthValue();
         Long startPeriod = (long) (currentMonth * 100);
         Long endPeriod = startPeriod + 99; // 현재 월의 마지막 날을 포함하도록 설정
@@ -106,34 +107,24 @@ public class FlowerService {
                 .limit(5)
                 .collect(Collectors.toList());
 
-        return randomFlowers.stream().map(flower -> Map.<String, Object>of(
-                "Flower", flower.getName(),
-                "period", String.format("%02d", flower.getPeriod() / 100),
-                "flower_language", flower.getFlowerLanguage(),
-                "explain", flower.getExplain(),
-                "image", flower.getImage().toString()
-        )).collect(Collectors.toList());
+        return randomFlowers.stream()
+                .map(FlowerResponseDTO::of)
+                .collect(Collectors.toList());
     }
 
-    public Map<String, Object> getTodayFlower() {
+    public FlowerResponseDTO getTodayFlower() {
         LocalDate today = LocalDate.now();
         Long todayPeriod = (long) (today.getMonthValue() * 100 + today.getDayOfMonth());
         List<Flower> flowers = flowerRepository.findByPeriodMonth(todayPeriod, todayPeriod);
 
         if (flowers.isEmpty()) {
             System.out.println("No flowers found for period: " + todayPeriod);
-            return Map.of();
+            return null;
         }
 
         Random random = new Random();
         Flower randomFlower = flowers.get(random.nextInt(flowers.size()));
 
-        return Map.of(
-                "Flower", randomFlower.getName(),
-                "period", String.format("%02d", randomFlower.getPeriod() / 100),
-                "flower_language", randomFlower.getFlowerLanguage(),
-                "explain", randomFlower.getExplain(),
-                "image", randomFlower.getImage().toString()
-        );
+        return FlowerResponseDTO.of(randomFlower);
     }
 }

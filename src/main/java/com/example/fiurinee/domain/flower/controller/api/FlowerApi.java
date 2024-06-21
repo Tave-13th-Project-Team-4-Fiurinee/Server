@@ -1,5 +1,6 @@
 package com.example.fiurinee.domain.flower.controller.api;
 
+import com.example.fiurinee.domain.flower.dto.FlowerResponseDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -26,7 +27,7 @@ public interface FlowerApi {
                     schema = @Schema(implementation = Map.class)))
     @ApiResponse(responseCode = "401", description = "인증 실패")
     @GetMapping("/season")
-    ResponseEntity<List<Map<String, Object>>> getSeasonFlowers();
+    ResponseEntity<List<FlowerResponseDTO>> getSeasonFlowers();
 
     @Operation(
             summary = "오늘의 꽃 조회",
@@ -38,5 +39,5 @@ public interface FlowerApi {
                     schema = @Schema(implementation = Map.class)))
     @ApiResponse(responseCode = "401", description = "인증 실패")
     @GetMapping("/today")
-    ResponseEntity<Map<String, Object>> getTodayFlower();
+    ResponseEntity<FlowerResponseDTO> getTodayFlower();
 }
