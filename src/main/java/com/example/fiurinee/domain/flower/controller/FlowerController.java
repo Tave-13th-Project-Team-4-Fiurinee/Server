@@ -1,5 +1,6 @@
 package com.example.fiurinee.domain.flower.controller;
 import com.example.fiurinee.domain.flower.controller.api.FlowerApi;
+import com.example.fiurinee.domain.flower.dto.FlowerResponseDTO;
 import com.example.fiurinee.domain.flower.service.FlowerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,21 +13,20 @@ import java.util.Map;
 
 
 @RestController
-@RequestMapping("/main")
 public class FlowerController implements FlowerApi {
 
     @Autowired
     private FlowerService flowerService;
 
     @Override
-    public ResponseEntity<List<Map<String, Object>>> getSeasonFlowers() {
-        List<Map<String, Object>> flowers = flowerService.getSeasonFlowers();
+    public ResponseEntity<List<FlowerResponseDTO>> getSeasonFlowers() {
+        List<FlowerResponseDTO> flowers = flowerService.getSeasonFlowers();
         return ResponseEntity.ok(flowers);
     }
 
     @Override
-    public ResponseEntity<Map<String, Object>> getTodayFlower() {
-        Map<String, Object> flower = flowerService.getTodayFlower();
+    public ResponseEntity<FlowerResponseDTO> getTodayFlower() {
+        FlowerResponseDTO flower = flowerService.getTodayFlower();
         return ResponseEntity.ok(flower);
     }
 

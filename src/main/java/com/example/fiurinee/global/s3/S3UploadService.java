@@ -22,11 +22,14 @@ public class S3UploadService {
     public void uploadImages(List<File> files) {
         for (File file : files) {
             String key = "images/" + file.getName();
-            s3Client.putObject(new PutObjectRequest(bucketName, key, file));
+            if (!s3Client.doesObjectExist(bucketName, key)) {
+                s3Client.putObject(new PutObjectRequest(bucketName, key, file));
+            }
         }
     }
 
-    public URL getImageUrl(String key) {
+    public URL getImageUrl(String key)
+    {
         return s3Client.getUrl(bucketName, key);
     }
 }

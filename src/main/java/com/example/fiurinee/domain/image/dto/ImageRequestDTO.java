@@ -4,7 +4,6 @@ public class ImageRequestDTO {
     private int flowerCode;
     private int backgroundCode;
 
-    // Getters and setters
     public int getFlowerCode() {
         return flowerCode;
     }
@@ -20,4 +19,6 @@ public class ImageRequestDTO {
     public void setBackgroundCode(int backgroundCode) {
         this.backgroundCode = backgroundCode;
     }
+
+
 }

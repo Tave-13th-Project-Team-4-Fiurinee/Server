@@ -1,5 +1,6 @@
 package com.example.fiurinee.domain.member.dto;
 
+import com.example.fiurinee.domain.anniversary.service.AnniversaryService;
 import com.example.fiurinee.domain.member.entity.Member;
 import lombok.*;
 
@@ -14,23 +15,28 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MemberResponseDTO {
-    private Long id;
+    private Long memberId;
     private String email;
-    private String name;
+    private String nickname;
     private int profileImage;
+    private boolean alarm;
     private List<Map<String, Object>> anniversaries;
+
+    private static AnniversaryService anniversaryService = new AnniversaryService();
 
     public static MemberResponseDTO of(Member member) {
         return MemberResponseDTO.builder()
-                .id(member.getId())
+                .memberId(member.getId())
                 .email(member.getEmail())
-                .name(member.getName())
+                .nickname(member.getName())
                 .profileImage(member.getProfileImage())
+                .alarm(member.isAlarm())
                 .anniversaries(member.getAnniversaries().stream()
                         .map(anniversary -> Map.<String, Object>of(
                                 "id", anniversary.getId(),
                                 "anniversaryDate", anniversary.getAnniversaryDate().toString(),
-                                "type", anniversary.getType().name()
+                                "type", anniversary.getType().name(),
+                                "d-day", anniversaryService.calculateDDay(anniversary)
                         ))
                         .collect(Collectors.toList()))
                 .build();
