@@ -77,4 +77,5 @@ jobs:
               -e AWS_ACCESSKEY=${{ secrets.AWS_ACCESSKEY }} \
               -e AWS_SECRETKEY=${{ secrets.AWS_SECRETKEY }} \
               -e AWS_BUCKET=${{ secrets.AWS_BUCKET }} \
+              -e INITIALIZE_DB=false
               qormoon/fiurinee_docker
