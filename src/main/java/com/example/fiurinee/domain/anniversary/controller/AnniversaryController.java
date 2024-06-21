@@ -47,10 +47,7 @@ public class AnniversaryController implements AnniversaryApi {
         Member member = memberService.findById(id);
         List<Anniversary> anniversaries = member.getAnniversaries();
 
-        List<AnniversaryResponseDTO> zeroDayAnniversaries = new ArrayList<>();
-        for (Anniversary anniversary : anniversaries) {
-            zeroDayAnniversaries.addAll(anniversaryService.getDDayZeroAnniversaries(anniversary));
-        }
+        List<AnniversaryResponseDTO> zeroDayAnniversaries = anniversaryService.getDDayZeroAnniversaries(anniversaries);
 
         return ResponseEntity.ok(zeroDayAnniversaries);
     }

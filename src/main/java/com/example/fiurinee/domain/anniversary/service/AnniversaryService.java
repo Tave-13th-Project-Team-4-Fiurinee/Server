@@ -138,30 +138,31 @@ public class AnniversaryService {
         return dDayList;
     }
 
-    public List<AnniversaryResponseDTO> getDDayZeroAnniversaries(Anniversary anniversary) {
-        List<Map<String, Integer>> allDDays = calculateDDay(anniversary);
+    public List<AnniversaryResponseDTO> getDDayZeroAnniversaries(List<Anniversary> anniversaries) {
         List<AnniversaryResponseDTO> dDayZeroList = new ArrayList<>();
 
-        List<Map<String, Integer>> zeroDDays = new ArrayList<>();
-        for (Map<String, Integer> dDay : allDDays) {
-            for (Map.Entry<String, Integer> entry : dDay.entrySet()) {
-                if (entry.getValue() == 0) {
-                    Map<String, Integer> zeroDay = new HashMap<>();
-                    zeroDay.put(entry.getKey(), entry.getValue());
-                    zeroDDays.add(zeroDay);
+        for (Anniversary anniversary : anniversaries) {
+            List<Map<String, Integer>> allDDays = calculateDDay(anniversary);
+            List<Map<String, Integer>> zeroDDays = new ArrayList<>();
+
+            for (Map<String, Integer> dDay : allDDays) {
+                for (Map.Entry<String, Integer> entry : dDay.entrySet()) {
+                    if (entry.getValue() == 0) {
+                        Map<String, Integer> zeroDay = new HashMap<>();
+                        zeroDay.put(entry.getKey(), entry.getValue());
+                        zeroDDays.add(zeroDay);
+                    }
                 }
+            }
+
+            if (!zeroDDays.isEmpty()) {
+                dDayZeroList.add(AnniversaryResponseDTO.of(anniversary, zeroDDays));
             }
         }
 
-        if (!zeroDDays.isEmpty()) {
-            AnniversaryResponseDTO dto = new AnniversaryResponseDTO();
-            dto.setId(anniversary.getId());
-            dto.setAnniversaryDate(anniversary.getAnniversaryDate().toString());
-            dto.setType(anniversary.getType().toString());
-            dto.setDDays(zeroDDays);
-            dDayZeroList.add(dto);
+        if (dDayZeroList.isEmpty()) {
+            dDayZeroList.add(AnniversaryResponseDTO.empty());
         }
-
 
         return dDayZeroList;
     }
