@@ -1,12 +1,18 @@
 package com.example.fiurinee.global.api.service;
 
+import com.example.fiurinee.domain.inputMessage.dto.MentDto;
+import com.example.fiurinee.domain.inputMessage.dto.ModelMentResponseDto;
+import com.example.fiurinee.domain.inputMessage.dto.ResponseMentDto;
 import com.example.fiurinee.domain.member.entity.Member;
 import com.example.fiurinee.domain.oauth2.dto.KakaoLogoutDto;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.reactive.function.client.ClientResponse;
 import org.springframework.web.reactive.function.client.WebClient;
+
+import java.util.List;
 
 @Service
 @Transactional
@@ -58,6 +64,21 @@ public class CallApiService {
                 .header("Authorization","Bearer "+kakaoAccessToken)
                 .retrieve()
                 .bodyToMono(KakaoLogoutDto.class)
+                .block();
+
+    }
+
+    public static List<ModelMentResponseDto> mentApi(String url, MentDto mentDto) {
+
+        WebClient webClient = WebClient.builder().build();
+
+        return webClient
+                .post()
+                .uri(url)
+                .contentType(MediaType.APPLICATION_JSON)
+                .bodyValue(mentDto)
+                .retrieve()
+                .bodyToMono(new ParameterizedTypeReference<List<ModelMentResponseDto>>() {})
                 .block();
 
     }

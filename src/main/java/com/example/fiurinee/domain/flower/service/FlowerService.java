@@ -2,10 +2,13 @@ package com.example.fiurinee.domain.flower.service;
 
 import com.example.fiurinee.domain.flower.entity.Flower;
 import com.example.fiurinee.domain.flower.repository.FlowerRepository;
+import com.example.fiurinee.global.exception.CustomException;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -20,6 +23,8 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
+@Slf4j
 public class FlowerService {
     @Autowired
     private FlowerRepository flowerRepository;
@@ -135,5 +140,17 @@ public class FlowerService {
                 "explain", randomFlower.getExplain(),
                 "image", randomFlower.getImage().toString()
         );
+    }
+
+    public Flower findByNameAndFlowerLanguage(String name,String flowerLangauge){
+
+        name = name.trim();
+        flowerLangauge = flowerLangauge.trim();
+
+        log.info("Searching for flower with name: '{}' and flowerLanguage: '{}'", name, flowerLangauge);
+        Flower flower = flowerRepository.findByNameAndFlowerLanguage(name,flowerLangauge).orElseThrow(
+                () -> new CustomException("꽃 이름 또는 꽃말이 존재하지 않습니다."));
+
+        return flower;
     }
 }

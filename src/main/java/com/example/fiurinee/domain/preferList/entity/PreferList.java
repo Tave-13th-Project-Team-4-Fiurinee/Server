@@ -14,7 +14,7 @@ public class PreferList {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long preferListId;
 
-    private Long preferNumber;
+    private Long preferOrder;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "memberId")

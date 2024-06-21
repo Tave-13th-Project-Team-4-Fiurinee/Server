@@ -19,9 +19,9 @@ public class FiurineeApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		// CSV 파일 경로
-		String filePath = "src/main/resources/flowers.csv";
+//		String filePath = "src/main/resources/flowers.csv";
 		// CSV 파일을 파싱하고 데이터베이스에 저장합니다.
-		flowerService.parseAndSaveCsv(filePath);
+//		flowerService.parseAndSaveCsv(filePath);
 	}
 }
 

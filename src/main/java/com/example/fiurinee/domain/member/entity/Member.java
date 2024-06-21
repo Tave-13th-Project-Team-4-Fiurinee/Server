@@ -40,6 +40,7 @@ public class Member {
     private boolean alarm;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    @OrderBy("preferOrder ASC")
     private List<PreferList> preferLists;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
