@@ -26,6 +26,10 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
+      # Gradle Wrapper 파일에 실행 권한을 부여합니다.
+      - name: Grant Execute Permission For Gradlew
+        run: chmod +x gradlew
+
       # gradle caching - 빌드 시간 향상
       - name: Gradle Caching
         uses: actions/cache@v3
