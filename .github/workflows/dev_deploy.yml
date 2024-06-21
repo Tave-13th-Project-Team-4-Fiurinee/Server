@@ -55,7 +55,7 @@ jobs:
     runs-on: ubuntu-latest # 워크플로우가 실행될 환경을 지정합니다.
 
     steps:
-      # EC2 서버에 SSH로 접속하여 Docker 이미지를 pull하고 컨테이너를 재시작합니다.
+      # EC2 서버에 SSH로 접속하여 Docker 이미지를 pull하고 컨테이너를 재시작
       - name: Deploy to EC2
         uses: appleboy/ssh-action@master
         with:
