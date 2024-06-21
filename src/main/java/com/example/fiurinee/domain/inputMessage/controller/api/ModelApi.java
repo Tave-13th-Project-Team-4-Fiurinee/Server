@@ -32,9 +32,7 @@ public interface ModelApi {
             schema = @Schema(type = "string"),
             description = "Bearer [Access 토큰]"
     )
-    @ApiResponse(responseCode = "200", description = "꽃 추천 성공",
-            content = @Content(mediaType = "application/json",
-                    schema = @Schema(implementation = ResponseMentDto.class)))
+    @ApiResponse(responseCode = "200", description = "꽃 추천 성공")
     @ApiResponse(responseCode = "401", description = "인증 실패")
     @PostMapping("/{id}/ment")
     public ResponseEntity<List<ResponseMentDto>> inputMent(@Parameter(description = "회원 id") @PathVariable("id") Long id,
@@ -51,9 +49,7 @@ public interface ModelApi {
             schema = @Schema(type = "string"),
             description = "Bearer [Access 토큰]"
     )
-    @ApiResponse(responseCode = "200", description = "꽃 추천 성공",
-            content = @Content(mediaType = "application/json",
-                    schema = @Schema(implementation = ResponseMentDto.class)))
+    @ApiResponse(responseCode = "200", description = "꽃 추천 성공")
     @ApiResponse(responseCode = "401", description = "인증 실패")
     @PostMapping("/ment")
     public ResponseEntity<List<ResponseMentDto>> inputMentNotMember(@Parameter(description = "입력한 멘트") @RequestBody String ment);
@@ -69,7 +65,7 @@ public interface ModelApi {
             schema = @Schema(type = "string"),
             description = "Bearer [Access 토큰]"
     )
-    @ApiResponse(responseCode = "204", description = "멘트 추천 및 어울리는 꽃 추천 성공")
+    @ApiResponse(responseCode = "200", description = "멘트 추천 및 어울리는 꽃 추천 성공")
     @ApiResponse(responseCode = "401", description = "인증 실패")
     @PostMapping("/{memberId}/{flowerId}")
     public ResponseEntity<ResponseHarmonyWitnMentDto> selectFlower(@Parameter(description = "회원의 아이디") @PathVariable ("memberId") Long memberId,

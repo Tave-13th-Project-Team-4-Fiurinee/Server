@@ -1,11 +1,13 @@
 package com.example.fiurinee.domain.matchingFlower.controller;
 
 import com.example.fiurinee.domain.flower.service.FlowerService;
+import com.example.fiurinee.domain.matchingFlower.controller.api.MatchingFlowerApi;
 import com.example.fiurinee.domain.matchingFlower.dto.HarmonyRecentDto;
 import com.example.fiurinee.domain.matchingFlower.entity.MatchingFlower;
 import com.example.fiurinee.domain.matchingFlower.service.MatchingFlowerService;
 import com.example.fiurinee.domain.member.entity.Member;
 import com.example.fiurinee.domain.member.service.MemberService;
+import com.example.fiurinee.domain.preferList.entity.PreferList;
 import com.example.fiurinee.domain.recommendFlower.service.RecommendFlowerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +24,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 @RequestMapping("/member")
-public class MatchingFlowerController {
+public class MatchingFlowerController implements MatchingFlowerApi {
 
     private final MemberService memberService;
     private final MatchingFlowerService matchingFlowerService;
@@ -40,8 +42,43 @@ public class MatchingFlowerController {
             if(harmonyRecentDtos != null) {
                 re.add(harmonyRecentDtos.get(0));
                 re.add(harmonyRecentDtos.get(1));
-            }else{
-                break;
+            }
+        }
+
+        return ResponseEntity.ok(re);
+    }
+
+    @GetMapping("/{id}/harmony")
+    public ResponseEntity<List<HarmonyRecentDto>> harmony(@PathVariable("id") Long id){
+        Member byId = memberService.findById(id);
+
+        List<HarmonyRecentDto> re = new ArrayList<>();
+
+        int size = byId.getRecommendFlowers().size();
+
+        for(long i=1;i<=size;i++){
+            List<HarmonyRecentDto> harmonyRecentDtos = HarmonyRecentDto.of(i, byId);
+            if(harmonyRecentDtos != null) {
+                re.add(harmonyRecentDtos.get(0));
+                re.add(harmonyRecentDtos.get(1));
+            }
+        }
+
+        return ResponseEntity.ok(re);
+    }
+
+    @GetMapping("/{id}/prefer/harmony")
+    public ResponseEntity<List<HarmonyRecentDto>> preferHarmony(@PathVariable("id") Long id){
+        Member byId = memberService.findById(id);
+
+        List<HarmonyRecentDto> re = new ArrayList<>();
+        List<PreferList> preferLists = byId.getPreferLists();
+
+        for (PreferList preferList : preferLists) {
+            List<HarmonyRecentDto> harmonyRecentDtos = HarmonyRecentDto.of(preferList.getPreferOrder(), byId);
+            if(harmonyRecentDtos != null) {
+                re.add(harmonyRecentDtos.get(0));
+                re.add(harmonyRecentDtos.get(1));
             }
         }
 
@@ -53,14 +90,14 @@ public class MatchingFlowerController {
 //    public boolean test(){
 //        MatchingFlower build1 = MatchingFlower.builder()
 //                .flower(flowerService.findByNameAndFlowerLanguage("검은포플라", "용기"))
-//                .recommendFlower(recommendFlowerService.findById(5L))
+//                .recommendFlower(recommendFlowerService.findById(3L))
 //                .build();
 //
 //        matchingFlowerService.save(build1);
 //
 //        MatchingFlower build2 = MatchingFlower.builder()
 //                .flower(flowerService.findByNameAndFlowerLanguage("군자란", "고귀"))
-//                .recommendFlower(recommendFlowerService.findById(5L))
+//                .recommendFlower(recommendFlowerService.findById(3L))
 //                .build();
 //
 //        matchingFlowerService.save(build2);

@@ -4,9 +4,11 @@ import com.example.fiurinee.domain.flower.entity.Flower;
 import com.example.fiurinee.domain.flower.service.FlowerService;
 import com.example.fiurinee.domain.member.entity.Member;
 import com.example.fiurinee.domain.member.service.MemberService;
+import com.example.fiurinee.domain.preferList.entity.PreferList;
 import com.example.fiurinee.domain.recommendComment.entity.RecommendComment;
 import com.example.fiurinee.domain.recommendComment.repository.RecommendCommentRepository;
 import com.example.fiurinee.domain.recommendComment.service.RecommendCommentService;
+import com.example.fiurinee.domain.recommendFlower.controller.api.RecommendFlowerApi;
 import com.example.fiurinee.domain.recommendFlower.dto.RecommendFlowerDto;
 import com.example.fiurinee.domain.recommendFlower.entity.RecommendFlower;
 import com.example.fiurinee.domain.recommendFlower.service.RecommendFlowerService;
@@ -25,7 +27,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/member")
-public class RecommendFlowerController {
+public class RecommendFlowerController implements RecommendFlowerApi {
 
     private final MemberService memberService;
     private final FlowerService flowerService;
@@ -55,8 +57,28 @@ public class RecommendFlowerController {
 
         List<RecommendFlowerDto> re = new ArrayList<>();
 
-        for(long i = 1 ; i<4;i++){
+        int size = byId.getRecommendFlowers().size();
+
+        for(long i = 1 ; i<=size;i++){
             RecommendFlowerDto recommendFlowerDto = RecommendFlowerDto.of(i, byId);
+            if(recommendFlowerDto == null){
+            }else{
+                re.add(recommendFlowerDto);
+            }
+        }
+
+        return ResponseEntity.ok(re);
+    }
+
+    @GetMapping("/{id}/prefer/recommend")
+    public ResponseEntity<List<RecommendFlowerDto>> preferFlower(@PathVariable("id") Long id){
+        Member byId = memberService.findById(id);
+        List<PreferList> preferLists = byId.getPreferLists();
+
+        List<RecommendFlowerDto> re = new ArrayList<>();
+
+        for (PreferList preferList : preferLists) {
+            RecommendFlowerDto recommendFlowerDto = RecommendFlowerDto.of(preferList.getPreferOrder(), byId);
             if(recommendFlowerDto == null){
             }else{
                 re.add(recommendFlowerDto);
