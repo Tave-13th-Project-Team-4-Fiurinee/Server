@@ -60,7 +60,7 @@ jobs:
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.EC2_HOST }} # EC2 서버의 호스트 주소
-          username: ubuntu # EC2 서버의 사용자 이름
+          username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }} # EC2 서버에 접근하기 위한 SSH 개인 키
           script: |
             # Docker Hub에서 최신 이미지를 pull 합니다.
