@@ -33,6 +33,23 @@ public class RecommendFlowerController {
     private final RecommendCommentService recommendCommentService;
 
     @GetMapping("/{id}/recommend/recent")
+    public ResponseEntity<List<RecommendFlowerDto>> responseRecommendFlowerRecent(@PathVariable("id") Long id){
+        Member byId = memberService.findById(id);
+
+        List<RecommendFlowerDto> re = new ArrayList<>();
+
+        for(long i = 1 ; i<4;i++){
+            RecommendFlowerDto recommendFlowerDto = RecommendFlowerDto.of(i, byId);
+            if(recommendFlowerDto == null){
+            }else{
+                re.add(recommendFlowerDto);
+            }
+        }
+
+        return ResponseEntity.ok(re);
+    }
+
+    @GetMapping("/{id}/recommend")
     public ResponseEntity<List<RecommendFlowerDto>> responseRecommendFlower(@PathVariable("id") Long id){
         Member byId = memberService.findById(id);
 
