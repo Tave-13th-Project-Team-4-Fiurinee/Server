@@ -34,7 +34,6 @@ public interface ImageApi {
     )
     @ApiResponse(responseCode = "200", description = "프로필 이미지 조회 성공")
     @ApiResponse(responseCode = "401", description = "인증 실패")
-    @ApiResponse(responseCode = "404", description = "사용자를 찾을 수 없음")
     @GetMapping("/member/{id}/image")
     ResponseEntity<ImageResponseDTO> getImage(@PathVariable Long id);
 
@@ -51,7 +50,6 @@ public interface ImageApi {
     )
     @ApiResponse(responseCode = "204", description = "프로필 이미지 수정 성공")
     @ApiResponse(responseCode = "401", description = "인증 실패")
-    @ApiResponse(responseCode = "404", description = "사용자를 찾을 수 없음")
     @PutMapping("/member/{id}/image")
     ResponseEntity<Void> updateImage(@PathVariable Long id, @RequestBody ImageRequestDTO imageRequest);
 }

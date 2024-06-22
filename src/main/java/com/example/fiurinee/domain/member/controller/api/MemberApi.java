@@ -29,7 +29,6 @@ public interface MemberApi {
     )
     @ApiResponse(responseCode = "200", description = "멤버 조회 성공")
     @ApiResponse(responseCode = "401", description = "인증 실패")
-    @ApiResponse(responseCode = "404", description = "멤버를 찾을 수 없음")
     @GetMapping("/member/{id}")
     ResponseEntity<MemberResponseDTO> getMemberById(@PathVariable("id") Long id);
 }

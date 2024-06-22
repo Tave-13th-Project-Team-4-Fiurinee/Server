@@ -83,7 +83,6 @@ public interface AnniversaryApi {
     )
     @ApiResponse(responseCode = "200", description = "D-Day가 0인 기념일 조회 성공")
     @ApiResponse(responseCode = "401", description = "인증 실패")
-    @ApiResponse(responseCode = "404", description = "기념일 또는 사용자를 찾을 수 없음")
     @GetMapping("/member/{id}/anniversary/zero-day")
     ResponseEntity<List<AnniversaryResponseDTO>> getZeroDayAnniversaries(@PathVariable Long id);
 
