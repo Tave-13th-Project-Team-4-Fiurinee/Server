@@ -21,10 +21,10 @@ public class S3Controller {
         this.bucketName = bucketName;
     }
 
-    @GetMapping("/image")
-    public ResponseEntity<URL> getImage(){
-        URL img = s3Client.getUrl(bucketName, "fiurinnn");
-
-        return ResponseEntity.ok(img);
-    }
+//    @GetMapping("/image")
+//    public ResponseEntity<URL> getImage(){
+//        URL img = s3Client.getUrl(bucketName, "fiurinnn");
+//
+//        return ResponseEntity.ok(img);
+//    }
 }

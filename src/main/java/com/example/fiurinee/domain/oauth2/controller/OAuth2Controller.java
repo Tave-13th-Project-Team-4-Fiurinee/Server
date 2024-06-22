@@ -3,6 +3,7 @@ package com.example.fiurinee.domain.oauth2.controller;
 import com.example.fiurinee.domain.jwt.utils.JwtUtils;
 import com.example.fiurinee.domain.member.entity.Member;
 import com.example.fiurinee.domain.member.service.MemberService;
+import com.example.fiurinee.domain.oauth2.controller.api.OAuth2Api;
 import com.example.fiurinee.domain.oauth2.dto.KakaoLogoutDto;
 import com.example.fiurinee.global.api.service.CallApiService;
 import com.example.fiurinee.global.redis.utils.RedisUtil;
@@ -19,7 +20,7 @@ import org.springframework.web.reactive.function.client.ClientResponse;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-public class OAuth2Controller {
+public class OAuth2Controller implements OAuth2Api {
 
     private final MemberService memberService;
     private final RedisUtil redisUtil;
