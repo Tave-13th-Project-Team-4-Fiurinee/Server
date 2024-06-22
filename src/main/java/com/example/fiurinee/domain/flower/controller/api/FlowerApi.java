@@ -22,9 +22,7 @@ public interface FlowerApi {
             description = "현재 시즌 꽃을 조회합니다.",
             security = @SecurityRequirement(name = "bearerAuth")
     )
-    @ApiResponse(responseCode = "200", description = "시즌 꽃 조회 성공",
-            content = @Content(mediaType = "application/json",
-                    schema = @Schema(implementation = Map.class)))
+    @ApiResponse(responseCode = "200", description = "시즌 꽃 조회 성공")
     @ApiResponse(responseCode = "401", description = "인증 실패")
     @GetMapping("/season")
     ResponseEntity<List<FlowerResponseDTO>> getSeasonFlowers();
@@ -34,9 +32,7 @@ public interface FlowerApi {
             description = "오늘의 꽃을 조회합니다.",
             security = @SecurityRequirement(name = "bearerAuth")
     )
-    @ApiResponse(responseCode = "200", description = "오늘의 꽃 조회 성공",
-            content = @Content(mediaType = "application/json",
-                    schema = @Schema(implementation = Map.class)))
+    @ApiResponse(responseCode = "200", description = "오늘의 꽃 조회 성공")
     @ApiResponse(responseCode = "401", description = "인증 실패")
     @GetMapping("/today")
     ResponseEntity<FlowerResponseDTO> getTodayFlower();

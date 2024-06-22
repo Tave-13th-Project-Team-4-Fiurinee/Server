@@ -27,9 +27,7 @@ public interface MemberApi {
             schema = @Schema(type = "string"),
             description = "Bearer [Access 토큰]"
     )
-    @ApiResponse(responseCode = "200", description = "멤버 조회 성공",
-            content = @Content(mediaType = "application/json",
-                    schema = @Schema(implementation = Member.class)))
+    @ApiResponse(responseCode = "200", description = "멤버 조회 성공")
     @ApiResponse(responseCode = "401", description = "인증 실패")
     @ApiResponse(responseCode = "404", description = "멤버를 찾을 수 없음")
     @GetMapping("/member/{id}")

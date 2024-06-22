@@ -32,8 +32,7 @@ public interface ImageApi {
             schema = @Schema(type = "string"),
             description = "Bearer [Access 토큰]"
     )
-    @ApiResponse(responseCode = "200", description = "프로필 이미지 조회 성공",
-            content = @Content(mediaType = "application/json"))
+    @ApiResponse(responseCode = "200", description = "프로필 이미지 조회 성공")
     @ApiResponse(responseCode = "401", description = "인증 실패")
     @ApiResponse(responseCode = "404", description = "사용자를 찾을 수 없음")
     @GetMapping("/member/{id}/image")
