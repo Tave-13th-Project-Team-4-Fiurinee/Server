@@ -46,6 +46,12 @@ jobs:
       - name: Build With Gradle
         run: ./gradlew build -x test
 
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+            name: cicdsample
+            path: build/libs/*.jar
+
       # Docker 이미지를 빌드합니다.
       - name: docker image build
         run: docker build -t qormoon/fiurinee_docker .
