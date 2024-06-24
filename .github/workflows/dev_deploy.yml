@@ -46,11 +46,6 @@ jobs:
       - name: Build With Gradle
         run: ./gradlew build -x test
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v2
-        with:
-            name: cicdsample
-            path: build/libs/*.jar
 
       # Docker 이미지를 빌드합니다.
       - name: docker image build
@@ -68,57 +63,19 @@ jobs:
         run: docker push qormoon/fiurinee_docker
 
 
-      # 빌드된 JAR 파일을 원격 서버에 복사합니다.
-      - name: Copy jar file to remote
-        uses: appleboy/scp-action@master
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ubuntu
-          key: ${{ secrets.EC2_SSH_KEY }}
-          source: "./build/libs/*.jar"
-          target: "/home/ubuntu/cicd"
-          strip_components: 2
-          debug: true
-
-
-      # 배포 스크립트를 원격 서버에 복사
-      - name: Copy deploy script file to remote
-        uses: appleboy/scp-action@master
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ubuntu
-          key: ${{ secrets.EC2_SSH_KEY }}
-          source: "./.deploy/deploy.sh"
-          target: "/home/ubuntu/cicd"
-          debug: true
-
-      # 배포 스크립트를 원격 서버에서 실행
-      - name: Execute deploy script
+      # 배포
+      - name: Deploy
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
-          script_stop: true
+          envs: GITHUB_SHA
           script: |
-            chmod +x /home/ubuntu/cicd/deploy.sh
-            sh /home/ubuntu/cicd/deploy.sh
-
-
-
-#      # 배포
-#      - name: Deploy
-#        uses: appleboy/ssh-action@master
-#        with:
-#          host: ${{ secrets.EC2_HOST }}
-#          username: ubuntu
-#          key: ${{ secrets.EC2_SSH_KEY }}
-#          envs: GITHUB_SHA
-#          script: |
-#            sudo docker ps
-#            sudo docker pull qormoon/fiurinee_docker
-#            sudo docker run -d -p 8080:8080 qormoon/fiurinee_docker
-#            sudo docker image prune -f
+            sudo docker ps
+            sudo docker pull qormoon/fiurinee_docker
+            sudo docker run -d -p 8080:8080 qormoon/fiurinee_docker
+            sudo docker image prune -f
 
 #  # 새로 빌드된 Docker 이미지를 EC2 서버에 배포하는 작업을 정의합니다.
 #  deploy:
