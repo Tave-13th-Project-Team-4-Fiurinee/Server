@@ -72,6 +72,7 @@ jobs:
           source: "./build/libs/*.jar"
           target: "/home/ec2-user/cicd"
           strip_components: 2
+          debug: true
 
 
       # 배포 스크립트를 원격 서버에 복사합니다.
