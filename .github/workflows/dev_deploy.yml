@@ -88,7 +88,7 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
-          source: "deploy.sh"
+          source: "./deploy/deploy.sh"
           target: "/home/ubuntu/cicd"
 
       # 배포 스크립트를 원격 서버에서 실행
