@@ -75,7 +75,7 @@ jobs:
           debug: true
 
 
-      # 배포 스크립트를 원격 서버에 복사합니다.
+      # 배포 스크립트를 원격 서버에 복사
       - name: Copy deploy script file to remote
         uses: appleboy/scp-action@master
         with:
