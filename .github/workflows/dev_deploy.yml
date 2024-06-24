@@ -90,6 +90,7 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           source: "./.deploy/deploy.sh"
           target: "/home/ubuntu/cicd"
+          debug: true
 
       # 배포 스크립트를 원격 서버에서 실행
       - name: Execute deploy script
