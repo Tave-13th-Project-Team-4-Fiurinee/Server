@@ -37,7 +37,7 @@ public interface AnniversaryApi {
     ResponseEntity<Anniversary> addAnniversary(@Parameter(name = "id", description = "멤버아이디")@PathVariable Long id, @RequestBody AnniversaryRequestDTO request);
 
     @Operation(
-            summary = "기념일 수정입니닷",
+            summary = "기념일 수정입니닷닷",
             description = "사용자의 기념일을 수정합니다.",
             security = @SecurityRequirement(name = "bearerAuth")
     )
