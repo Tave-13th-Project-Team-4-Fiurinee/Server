@@ -70,7 +70,7 @@ jobs:
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
           source: "./build/libs/*.jar"
-          target: "/home/ec2-user/cicd"
+          target: "/home/ubuntu/cicd"
           strip_components: 2
           debug: true
 
@@ -83,7 +83,7 @@ jobs:
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
           source: ".github/scripts/deploy.sh"
-          target: "/home/ec2-user/cicd"
+          target: "/home/ubuntu/cicd"
 
       # 배포 스크립트를 원격 서버에서 실행
       - name: Execute deploy script
@@ -94,8 +94,8 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script_stop: true
           script: |
-            chmod +x /home/ec2-user/cicd/deploy.sh
-            sh /home/ec2-user/cicd/deploy.sh
+            chmod +x /home/ubuntu/cicd/deploy.sh
+            sh /home/ubuntu/cicd/deploy.sh
 
 
 
