@@ -84,7 +84,7 @@ jobs:
           source: ".github/scripts/deploy.sh"
           target: "/home/ec2-user/cicd"
 
-      # 배포 스크립트를 원격 서버에서 실행합니다.
+      # 배포 스크립트를 원격 서버에서 실행
       - name: Execute deploy script
         uses: appleboy/ssh-action@master
         with:
