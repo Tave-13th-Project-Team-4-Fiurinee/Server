@@ -55,7 +55,7 @@ jobs:
           script: |
             mkdir -p /home/ubuntu/deploy
 
-
+      # docker-compose 복사
       - name: Copy docker-compose.yml
         uses: appleboy/scp-action@master
         with:
