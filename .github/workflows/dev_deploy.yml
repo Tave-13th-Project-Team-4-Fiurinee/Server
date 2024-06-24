@@ -46,14 +46,14 @@ jobs:
       - name: Build With Gradle
         run: ./gradlew build -x test
 
-      - name: Create .deploy directory
+      - name: Create deploy directory
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            mkdir -p /home/ubuntu/.deploy
+            mkdir -p /home/ubuntu/deploy
 
 
       - name: Copy docker-compose.yml
