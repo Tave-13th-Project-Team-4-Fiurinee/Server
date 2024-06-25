@@ -34,6 +34,7 @@ public class MemberResponseDTO {
                 .anniversaries(member.getAnniversaries().stream()
                         .map(anniversary -> Map.<String, Object>of(
                                 "id", anniversary.getId(),
+                                "name", anniversary.getName(),
                                 "anniversaryDate", anniversary.getAnniversaryDate().toString(),
                                 "type", anniversary.getType().name(),
                                 "d-day", anniversaryService.calculateDDay(anniversary)
