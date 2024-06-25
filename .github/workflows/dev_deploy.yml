@@ -86,7 +86,7 @@ jobs:
 
   # 새로 빌드된 Docker 이미지를 EC2 서버에 배포하는 작업을 정의
   deploy:
-    needs: build-docker-image # build-docker-image 작업이 완료된 후에 실행됩니다.
+    needs: build-docker-image # build-docker-image 작업이 완료된 후에 실행
     runs-on: ubuntu-latest # 워크플로우가 실행될 환경을 지정합니다.
 
     steps:
