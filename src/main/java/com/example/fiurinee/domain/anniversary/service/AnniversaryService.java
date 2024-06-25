@@ -44,6 +44,7 @@ public class AnniversaryService {
         Timestamp timestamp = Timestamp.from(zonedDateTime.toInstant());
 
         Anniversary anniversary = Anniversary.builder()
+                .name(requestDTO.getName())
                 .anniversaryDate(timestamp)
                 .type(anniversaryType)
                 .member(member)
@@ -66,6 +67,7 @@ public class AnniversaryService {
         Timestamp timestamp = Timestamp.from(zonedDateTime.toInstant());
 
         anniversary.setAnniversaryDate(timestamp);
+        anniversary.setName(requestDTO.getName());
         anniversary.setType(AnniversaryType.valueOf(requestDTO.getType()));
         anniversaryRepository.save(anniversary);
         return anniversary;
