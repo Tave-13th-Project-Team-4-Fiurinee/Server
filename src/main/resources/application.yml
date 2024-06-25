@@ -18,7 +18,7 @@ spring:
       max-active: 8
     port: 6379
     host: 127.0.0.1
-    
+
   security:
     oauth2:
       client:
@@ -56,5 +56,5 @@ cloud:
     stack:
       auto: 'false'
 
-
-
+jwt:
+  secret-key: ${JWT_SECRET_KEY}

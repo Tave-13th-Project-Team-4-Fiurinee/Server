@@ -1,5 +1,6 @@
-package com.example.fiurinee.global.s3;
+package com.example.fiurinee.global.s3.service;
 
+import com.example.fiurinee.global.s3.service.S3UploadService;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

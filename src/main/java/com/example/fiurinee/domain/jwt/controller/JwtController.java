@@ -1,5 +1,6 @@
 package com.example.fiurinee.domain.jwt.controller;
 
+import com.example.fiurinee.domain.jwt.controller.api.JwtApi;
 import com.example.fiurinee.domain.jwt.dto.RefreshDto;
 import com.example.fiurinee.domain.jwt.utils.JwtConstants;
 import com.example.fiurinee.domain.jwt.utils.JwtUtils;
@@ -20,7 +21,7 @@ import java.util.Map;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-public class JwtController {
+public class JwtController implements JwtApi {
 
     private final MemberService memberService;
     private final RedisUtil redisUtil;

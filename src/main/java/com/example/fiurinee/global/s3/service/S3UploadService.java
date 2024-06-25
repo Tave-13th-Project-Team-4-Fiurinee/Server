@@ -1,4 +1,4 @@
-package com.example.fiurinee.global.s3;
+package com.example.fiurinee.global.s3.service;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.PutObjectRequest;
