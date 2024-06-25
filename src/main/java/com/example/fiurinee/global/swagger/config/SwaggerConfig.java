@@ -1,4 +1,4 @@
-package com.example.fiurinee.global.security.config;
+package com.example.fiurinee.global.swagger.config;
 import io.swagger.v3.oas.models.servers.Server;
 
 import io.swagger.v3.oas.models.info.Info;

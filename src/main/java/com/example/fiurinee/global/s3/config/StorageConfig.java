@@ -1,4 +1,4 @@
-package com.example.fiurinee;
+package com.example.fiurinee.global.s3.config;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
