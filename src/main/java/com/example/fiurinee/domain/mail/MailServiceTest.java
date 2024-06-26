@@ -12,7 +12,7 @@ public class MailServiceTest {
 
     public void sendTestEmail() {
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo("qormoon@naver.com"); // 테스트 이메일 수신자
+        message.setTo("qormoon@naver.com");
         message.setSubject("Test Email");
         message.setText("This is a test email from the application.");
 
