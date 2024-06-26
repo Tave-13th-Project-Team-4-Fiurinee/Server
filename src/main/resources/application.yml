@@ -42,15 +42,15 @@ spring:
               - account_email
 
   mail:
-    host: smtp.naver.com
-    port: 465
+    host: smtp.gmail.com
+    port: 587
     username: ${{ secrets.MAIL_USERNAME }}
     password: ${{ secrets.MAIL_PASSWORD }}
     properties:
       mail:
         smtp:
           auth: true
-          ssl:
+          starttls:
             enable: true
 
 logging.level:
