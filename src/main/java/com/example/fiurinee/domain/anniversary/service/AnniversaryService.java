@@ -5,8 +5,10 @@ import com.example.fiurinee.domain.anniversary.dto.AnniversaryResponseDTO;
 import com.example.fiurinee.domain.anniversary.entity.Anniversary;
 import com.example.fiurinee.domain.anniversary.entity.AnniversaryType;
 import com.example.fiurinee.domain.anniversary.repository.AnniversaryRepository;
+import com.example.fiurinee.domain.mail.MailService;
 import com.example.fiurinee.domain.member.entity.Member;
 import com.example.fiurinee.domain.member.repository.MemberRepository;
+import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +31,9 @@ public class AnniversaryService {
 
     @Autowired
     private MemberRepository memberRepository;
+
+    @Autowired
+    private MailService mailService;
 
     public Anniversary addAnniversary(Long memberId, AnniversaryRequestDTO requestDTO) {
         Member member = memberRepository.findById(memberId).orElseThrow(() -> new IllegalArgumentException("Invalid member ID"));
@@ -159,6 +164,11 @@ public class AnniversaryService {
 
             if (!zeroDDays.isEmpty()) {
                 dDayZeroList.add(AnniversaryResponseDTO.of(anniversary, zeroDDays));
+                try {
+                    mailService.sendAnniversaryEmail(anniversary.getMember(), anniversary);
+                } catch (MessagingException e) {
+                    e.printStackTrace();
+                }
             }
         }
 
