@@ -43,7 +43,7 @@ spring:
 
   mail:
     host: smtp.naver.com
-    port: 465
+    port: 587
     username: ${{ secrets.MAIL_USERNAME }}
     password: ${{ secrets.MAIL_PASSWORD }}
     properties:
