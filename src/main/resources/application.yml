@@ -57,7 +57,7 @@ logging.level:
   org.hibernate.SQL: debug
   org.hibernate.type: trace
   org.springframework.mail: DEBUG
-  com.sun.mail.smtp: DEBUGs
+  com.sun.mail.smtp: DEBUG
 
 
 cloud:
