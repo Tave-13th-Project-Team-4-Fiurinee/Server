@@ -15,6 +15,7 @@ import java.util.Map;
 @Builder
 public class AnniversaryResponseDTO {
     private Long id;
+    private String name;
     private String anniversaryDate;
     private String type;
     private List<Map<String, Integer>> dDays;
@@ -22,6 +23,7 @@ public class AnniversaryResponseDTO {
     public static AnniversaryResponseDTO of(Anniversary anniversary, List<Map<String, Integer>> dDays) {
         return AnniversaryResponseDTO.builder()
                 .id(anniversary.getId())
+                .name(anniversary.getName())
                 .anniversaryDate(anniversary.getAnniversaryDate().toString())
                 .type(anniversary.getType().name())
                 .dDays(dDays)
@@ -37,6 +39,7 @@ public class AnniversaryResponseDTO {
 
         return AnniversaryResponseDTO.builder()
                 .id(null)
+                .name(null)
                 .anniversaryDate(null)
                 .type(null)
                 .dDays(dDays)
