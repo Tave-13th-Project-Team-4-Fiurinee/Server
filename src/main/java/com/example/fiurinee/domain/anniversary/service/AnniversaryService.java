@@ -164,11 +164,6 @@ public class AnniversaryService {
 
             if (!zeroDDays.isEmpty()) {
                 dDayZeroList.add(AnniversaryResponseDTO.of(anniversary, zeroDDays));
-                try {
-                    mailService.sendAnniversaryEmail(anniversary.getMember(), anniversary);
-                } catch (MessagingException e) {
-                    e.printStackTrace();
-                }
             }
         }
 
