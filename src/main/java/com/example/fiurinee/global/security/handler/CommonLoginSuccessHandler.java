@@ -35,22 +35,15 @@ public class CommonLoginSuccessHandler implements AuthenticationSuccessHandler {
 
         log.info("authentication.getPrincipal() = {}", principal);
 
-        Map<String, Object> responseMap = new HashMap<>();
-
         String refreshToken = JwtUtils.generateToken(principal.getMemberInfo(), JwtConstants.REFRESH_EXP_TIME);
-        responseMap.put("accessToken", JwtUtils.generateToken(principal.getMemberInfo(), JwtConstants.ACCESS_EXP_TIME));
-        responseMap.put("refreshToken", refreshToken);
+        String accessToken = JwtUtils.generateToken(principal.getMemberInfo(), JwtConstants.ACCESS_EXP_TIME);
 
         // principal에서 로그인하는 유저의 이메일을 기반으로 refresh 토큰을 redis에 저장
         redisUtil.set(principal.getMemberDto().email(),refreshToken,60*24);
 
-        Gson gson = new Gson();
-        String json = gson.toJson(responseMap);
+        String redirectUri = "http://localhost:3000/auth";
 
-        response.setContentType("application/json; charset=UTF-8");
-
-        PrintWriter writer = response.getWriter();
-        writer.println(json);
-        writer.flush();
+        String redirectUrl = String.format("%s?access_token=%s&refresh_token=%s", redirectUri, accessToken, refreshToken);
+        response.sendRedirect(redirectUrl);
     }
 }
