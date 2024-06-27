@@ -42,8 +42,9 @@ public class CommonLoginSuccessHandler implements AuthenticationSuccessHandler {
         redisUtil.set(principal.getMemberDto().email(),refreshToken,60*24);
 
         String redirectUri = "http://localhost:3000/auth";
+        Long memberId = principal.getMemberDto().id();
 
-        String redirectUrl = String.format("%s?access_token=%s&refresh_token=%s", redirectUri, accessToken, refreshToken);
+        String redirectUrl = String.format("%s?member_id=%d&access_token=%s&refresh_token=%s", redirectUri, memberId, accessToken, refreshToken);
         response.sendRedirect(redirectUrl);
     }
 }
