@@ -23,7 +23,7 @@ public class AnniversarySchedular {
     @Autowired
     private MemberService memberService;
 
-    @Scheduled(cron = "0 0 0 * * *")
+    @Scheduled(cron = "0 35 17 * * *")
     public void sendDDayZeroAnniversaryEmails() {
         List<Member> members = memberService.findAll();
         for (Member member : members) {
