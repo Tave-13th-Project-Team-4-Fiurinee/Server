@@ -8,6 +8,8 @@ import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 
 import java.util.List;
 import java.util.Map;
@@ -23,7 +25,8 @@ public class AnniversarySchedular {
     @Autowired
     private MemberService memberService;
 
-    @Scheduled(cron = "0 48 17 * * *", zone = "Asia/Seoul")
+    @Scheduled(cron = "0 05 18 * * *", zone = "Asia/Seoul")
+    @Transactional
     public void sendDDayZeroAnniversaryEmails() {
         List<Member> members = memberService.findAll();
         for (Member member : members) {
