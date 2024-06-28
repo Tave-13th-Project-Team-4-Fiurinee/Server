@@ -21,10 +21,13 @@ public class AnniversaryResponseDTO {
     private List<Map<String, Integer>> dDays;
 
     public static AnniversaryResponseDTO of(Anniversary anniversary, List<Map<String, Integer>> dDays) {
+        String fullDate = anniversary.getAnniversaryDate().toString();
+        String formattedDate = fullDate.substring(0, 10); // "yyyy-MM-dd" 형식으로 자르기
+
         return AnniversaryResponseDTO.builder()
                 .id(anniversary.getId())
                 .name(anniversary.getName())
-                .anniversaryDate(anniversary.getAnniversaryDate().toString())
+                .anniversaryDate(formattedDate)
                 .type(anniversary.getType().name())
                 .dDays(dDays)
                 .build();
