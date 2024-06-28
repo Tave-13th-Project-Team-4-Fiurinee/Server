@@ -43,14 +43,7 @@ public interface ModelApi {
             description = "비회원의 멘트 입력",
             security = @SecurityRequirement(name = "bearerAuth")
     )
-    @Parameter(
-            in = ParameterIn.HEADER,
-            name = "Authorization", required = true,
-            schema = @Schema(type = "string"),
-            description = "Bearer [Access 토큰]"
-    )
     @ApiResponse(responseCode = "200", description = "꽃 추천 성공")
-    @ApiResponse(responseCode = "401", description = "인증 실패")
     @PostMapping("/ment")
     public ResponseEntity<List<ResponseMentDto>> inputMentNotMember(@Parameter(description = "입력한 멘트") @RequestBody String ment);
 
