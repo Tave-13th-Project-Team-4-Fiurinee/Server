@@ -28,6 +28,7 @@ public class MailService {
         context.setVariables(variables);
         String html = templateEngine.process(templateName, context);
 
+        helper.setFrom("Fiurinee <wlgusqor12@gmail.com>");
         helper.setTo(to);
         helper.setSubject(subject);
         helper.setText(html, true);
