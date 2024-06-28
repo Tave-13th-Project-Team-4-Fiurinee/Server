@@ -38,7 +38,7 @@ public class MailService {
 
     public void sendAnniversaryEmail(Member member, Anniversary anniversary) throws MessagingException {
         String to = member.getEmail();
-        String subject = "기념일 알림";
+        String subject = "[Fiurinee]안녕하세요, Fiurinee입니다. 기념일을 축하드려요!";
         Map<String, Object> variables = Map.of(
                 "name", member.getName(),
                 "anniversaryName", anniversary.getName()
