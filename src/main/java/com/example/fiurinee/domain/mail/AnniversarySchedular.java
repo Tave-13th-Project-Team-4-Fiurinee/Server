@@ -16,20 +16,24 @@ import java.util.Map;
 
 @Service
 public class AnniversarySchedular {
-    @Autowired
-    private AnniversaryService anniversaryService;
+    private final AnniversaryService anniversaryService;
+    private final MailService mailService;
+    private final MemberService memberService;
 
-    @Autowired
-    private MailService mailService;
+    public AnniversarySchedular(AnniversaryService anniversaryService, MailService mailService, MemberService memberService) {
+        this.anniversaryService = anniversaryService;
+        this.mailService = mailService;
+        this.memberService = memberService;
+    }
 
-    @Autowired
-    private MemberService memberService;
-
-    @Scheduled(cron = "0 19 19 * * *", zone = "Asia/Seoul")
+    @Scheduled(cron = "0 0 9 * * *", zone = "Asia/Seoul")
     @Transactional
     public void sendDDayZeroAnniversaryEmails() {
         List<Member> members = memberService.findAll();
         for (Member member : members) {
+            if (!member.isAlarm()) { // Alarm이 false인 경우 스킵
+                continue;
+            }
             List<Anniversary> anniversaries = member.getAnniversaries();
             for (Anniversary anniversary : anniversaries) {
                 List<Map<String, Integer>> allDDays = anniversaryService.calculateDDay(anniversary);
