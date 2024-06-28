@@ -31,7 +31,7 @@ public class AnniversarySchedular {
     public void sendDDayZeroAnniversaryEmails() {
         List<Member> members = memberService.findAll();
         for (Member member : members) {
-            if (!member.isAlarm()) { // Alarm이 false인 경우 스킵
+            if (!member.isAlarm()) {
                 continue;
             }
             List<Anniversary> anniversaries = member.getAnniversaries();
