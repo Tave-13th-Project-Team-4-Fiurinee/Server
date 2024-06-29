@@ -92,7 +92,20 @@ public class ModelController implements ModelApi {
         re.add(responseHarmonyDto0);
         re.add(responseHarmonyDto1);
 
-        return ResponseEntity.ok(new ResponseHarmonyWitnMentDto("추천 멘트",re));
+        return ResponseEntity.ok(new ResponseHarmonyWitnMentDto("추천은 recommend, recommend는 영어로 추천, 내 너무 피곤하다,, 인생이란 뭘까",re));
+    }
+
+    @PostMapping("/{flowerId}/non")
+    public ResponseEntity<ResponseHarmonyWitnMentDto> selectFlowerNonMember(@PathVariable ("flowerId") Long flowerId,
+                                                                            @RequestBody String ment){
+        ResponseHarmonyDto responseHarmonyDto0 = new ResponseHarmonyDto(flowerService.findByNameAndFlowerLanguage("토마토", "완성된 아름다움"));
+        ResponseHarmonyDto responseHarmonyDto1 = new ResponseHarmonyDto(flowerService.findByNameAndFlowerLanguage("토레니아", "가련한 욕망"));
+
+        List<ResponseHarmonyDto> re = new ArrayList<>();
+        re.add(responseHarmonyDto0);
+        re.add(responseHarmonyDto1);
+
+        return ResponseEntity.ok(new ResponseHarmonyWitnMentDto("추천은 recommend, recommend는 영어로 추천, 내 너무 피곤하다,, 인생이란 뭘까",re));
     }
 
     @PostMapping("/test")
