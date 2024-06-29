@@ -45,5 +45,15 @@ public class MailService {
         );
         sendEmail(to, subject, "email", variables);
     }
+
+    public void sendPreAnniversaryEmail(Member member, Anniversary anniversary) throws MessagingException {
+        String to = member.getEmail();
+        String subject = "[Fiurinee] 안녕하세요, Fiurinee입니다. 곧 다가올 기념일을 준비하세요!";
+        Map<String, Object> variables = Map.of(
+                "name", member.getName(),
+                "anniversaryName", anniversary.getName()
+        );
+        sendEmail(to, subject, "pre-email", variables);
+    }
 }
 

@@ -28,7 +28,7 @@ public class AnniversarySchedular {
 
     @Scheduled(cron = "0 0 9 * * *", zone = "Asia/Seoul")
     @Transactional
-    public void sendDDayZeroAnniversaryEmails() {
+    public void sendAnniversaryEmails() {
         List<Member> members = memberService.findAll();
         for (Member member : members) {
             if (!member.isAlarm()) {
@@ -39,12 +39,14 @@ public class AnniversarySchedular {
                 List<Map<String, Integer>> allDDays = anniversaryService.calculateDDay(anniversary);
                 for (Map<String, Integer> dDay : allDDays) {
                     for (Map.Entry<String, Integer> entry : dDay.entrySet()) {
-                        if (entry.getValue() == 0) {
-                            try {
+                        try {
+                            if (entry.getValue() == 0) {
                                 mailService.sendAnniversaryEmail(anniversary.getMember(), anniversary);
-                            } catch (MessagingException e) {
-                                e.printStackTrace();
+                            } else if (entry.getValue() == 3) {
+                                mailService.sendPreAnniversaryEmail(anniversary.getMember(), anniversary);
                             }
+                        } catch (MessagingException e) {
+                            e.printStackTrace();
                         }
                     }
                 }
