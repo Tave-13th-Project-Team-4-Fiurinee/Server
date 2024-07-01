@@ -35,6 +35,8 @@ public class Member {
 
     private int profileImage;
 
+    private String backgroundColor = "#FFFFFF";
+
     private boolean alarm;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
@@ -55,18 +57,19 @@ public class Member {
     private List<RecommendComment> recommendComments;
 
     @Builder
-    private Member(String email, String name, String socialId, Role role, String kakaoAccessToken, int profileImage, boolean alarm) {
+    private Member(String email, String name, String socialId, Role role, String kakaoAccessToken, int profileImage, String backgroundColor,boolean alarm) {
         this.email = email;
         this.name = name;
         this.socialId = socialId;
         this.role = role;
         this.kakaoAccessToken = kakaoAccessToken;
         this.profileImage = profileImage;
+        this.backgroundColor = backgroundColor;
         this.alarm = alarm;
     }
 
-    public static Member createMember(String email, String name, String socialId, Role role, String kakaoAccessToken, int profileImage, boolean alarm) {
-        return new Member(email, name, socialId, role, kakaoAccessToken,profileImage, alarm);
+    public static Member createMember(String email, String name, String socialId, Role role, String kakaoAccessToken, int profileImage, String backgroundColor,boolean alarm) {
+        return new Member(email, name, socialId, role, kakaoAccessToken,profileImage, backgroundColor,alarm);
     }
 
     public void updateKakaoToken(String kakaoAccessToken){
@@ -76,4 +79,6 @@ public class Member {
     public void updateProfileImage(int profileImage) {
         this.profileImage = profileImage;
     }
+
+    public void updateBackgroundColor(String backgroundColor) {this.backgroundColor = backgroundColor;}
 }
