@@ -28,8 +28,8 @@ public class ImageController implements ImageApi {
     @Override
     public ResponseEntity<Void> updateImage(@PathVariable Long id, @RequestBody ImageRequestDTO imageRequest){
         int flowerCode = imageRequest.getFlowerCode();
-        int backgroundCode = imageRequest.getBackgroundCode();
-        imageService.updateProfileImage(id, flowerCode, backgroundCode);
+        String backgroundColor = imageRequest.getBackgroundColor();
+        imageService.updateProfileImage(id, flowerCode, backgroundColor);
         return ResponseEntity.noContent().build();
     }
 }

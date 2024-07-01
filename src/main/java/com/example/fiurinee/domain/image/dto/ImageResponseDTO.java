@@ -4,7 +4,7 @@ import java.net.URL;
 
 public class ImageResponseDTO {
     private URL flowerImageUrl;
-    private URL backgroundImageUrl;
+    private String backgroundColor;
 
     // Getters and setters
     public URL getFlowerImageUrl() {
@@ -15,11 +15,11 @@ public class ImageResponseDTO {
         this.flowerImageUrl = flowerImageUrl;
     }
 
-    public URL getBackgroundImageUrl() {
-        return backgroundImageUrl;
+    public String getBackgroundColor() {
+        return backgroundColor;
     }
 
-    public void setBackgroundImageUrl(URL backgroundImageUrl) {
-        this.backgroundImageUrl = backgroundImageUrl;
+    public void setBackgroundColor(String backgroundColor) {
+        this.backgroundColor = backgroundColor;
     }
 }

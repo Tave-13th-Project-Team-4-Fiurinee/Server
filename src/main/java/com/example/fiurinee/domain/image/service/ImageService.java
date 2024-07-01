@@ -25,41 +25,35 @@ public class ImageService {
     }
 
     public ImageResponseDTO getImageUrls(Long memberId) {
-        Member member = memberRepository.findById(memberId).orElseThrow(() -> new IllegalArgumentException("Invalid member ID"));
-        int imageCode = member.getProfileImage();
-
-        int flowerCode = (imageCode / 10) * 10;
-        int backgroundCode = imageCode % 10;
+        Member member = memberRepository.findById(memberId).orElseThrow(() -> new IllegalArgumentException("유효하지 않은 회원 ID입니다."));
+        int flowerCode = member.getProfileImage();
+        String backgroundColor = member.getBackgroundColor();
 
         String flowerImagePath = "images/flower_" + flowerCode + ".png";
-        String backgroundImagePath = "images/background_" + backgroundCode + ".png";
 
-        if (!doesObjectExist(flowerImagePath) || !doesObjectExist(backgroundImagePath)) {
-            throw new IllegalArgumentException("One or more image files do not exist in S3");
+        if (!doesObjectExist(flowerImagePath)) {
+            throw new IllegalArgumentException("이미지 파일이 S3에 존재하지 않습니다.");
         }
 
         URL flowerImageUrl = s3Client.getUrl(bucketName, flowerImagePath);
-        URL backgroundImageUrl = s3Client.getUrl(bucketName, backgroundImagePath);
 
         ImageResponseDTO imageResponseDTO = new ImageResponseDTO();
         imageResponseDTO.setFlowerImageUrl(flowerImageUrl);
-        imageResponseDTO.setBackgroundImageUrl(backgroundImageUrl);
-
+        imageResponseDTO.setBackgroundColor(backgroundColor != null ? backgroundColor : "#FFFFFF"); // 기본값은 흰색
 
         return imageResponseDTO;
     }
 
-    public void updateProfileImage(Long memberId, int flowerCode, int backgroundCode) {
-        String flowerImagePath = "images/flower_" + (flowerCode * 10) + ".png";
-        String backgroundImagePath = "images/background_" + backgroundCode + ".png";
+    public void updateProfileImage(Long memberId, int flowerCode, String backgroundColor) {
+        String flowerImagePath = "images/flower_" + flowerCode + ".png";
 
-        if (!doesObjectExist(flowerImagePath) || !doesObjectExist(backgroundImagePath)) {
-            throw new IllegalArgumentException("One or more image files do not exist in S3");
+        if (!doesObjectExist(flowerImagePath)) {
+            throw new IllegalArgumentException("이미지 파일이 S3에 존재하지 않습니다.");
         }
 
-        Member member = memberRepository.findById(memberId).orElseThrow(() -> new IllegalArgumentException("Invalid member ID"));
-        int profileImageCode = flowerCode * 10 + backgroundCode;
-        member.updateProfileImage(profileImageCode);
+        Member member = memberRepository.findById(memberId).orElseThrow(() -> new IllegalArgumentException("유효하지 않은 회원 ID입니다."));
+        member.updateProfileImage(flowerCode);
+        member.updateBackgroundColor(backgroundColor != null ? backgroundColor : "#FFFFFF"); // 기본값은 흰색
         memberRepository.save(member);
     }
 

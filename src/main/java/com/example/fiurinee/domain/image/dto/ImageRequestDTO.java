@@ -2,7 +2,7 @@ package com.example.fiurinee.domain.image.dto;
 
 public class ImageRequestDTO {
     private int flowerCode;
-    private int backgroundCode;
+    private String backgroundColor;
 
     public int getFlowerCode() {
         return flowerCode;
@@ -12,13 +12,11 @@ public class ImageRequestDTO {
         this.flowerCode = flowerCode;
     }
 
-    public int getBackgroundCode() {
-        return backgroundCode;
+    public String getBackgroundColor() {
+        return backgroundColor;
     }
 
-    public void setBackgroundCode(int backgroundCode) {
-        this.backgroundCode = backgroundCode;
+    public void setBackgroundColor(String backgroundColor) {
+        this.backgroundColor = backgroundColor;
     }
-
-
 }
